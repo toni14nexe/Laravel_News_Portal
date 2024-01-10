@@ -17,26 +17,38 @@
         <!-- Scripts -->
         @vite(["resources/css/app.css", "resources/js/app.js"])
     </head>
+    <style>
+        header,
+        main {
+            margin: 0.5rem 5rem;
+            background-color: rgba(255, 255, 255, 0.08);
+            color: white;
+            padding: 0.5rem;
+        }
+
+        .title {
+            font-weight: 700;
+            font-size: x-large;
+        }
+    </style>
     <body class="font-sans antialiased">
-        <div class="p-2 bg-dots-darker dark:bg-dots-lighter min-h-screen items-center justify-center bg-gray-100 bg-center selection:bg-red-500 selection:text-white dark:bg-gray-900">
-
+        <div
+            class="bg-dots-darker dark:bg-dots-lighter min-h-screen items-center justify-center bg-gray-100 bg-center p-2 selection:bg-red-500 selection:text-white dark:bg-gray-900"
+        >
             @include("layouts.navigation")
-
-            @include("logged.newest-news")
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow dark:bg-gray-800">
-                    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
+                <header class="title">{{ $header }}</header>
+            @endif
+
+            <!-- Page carousel -->
+            @if (isset($carousel))
+                <header>{{ $carousel }}</header>
             @endif
 
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            <main>{{ $slot }}</main>
         </div>
     </body>
 </html>

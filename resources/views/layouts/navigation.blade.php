@@ -72,13 +72,12 @@
         background-color: #f1f1f1;
         width: max-content;
         overflow: auto;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
         margin-top: 39px;
         margin-left: -50px;
         border-radius: 5px;
         padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
     }
 
     .dropdown-content:hover {
@@ -91,16 +90,19 @@
         display: block;
     }
 
-    .show {display: block;}
+    .show {
+        display: block;
+    }
 
-    a:hover {cursor: pointer;}
+    a:hover {
+        cursor: pointer;
+    }
 </style>
 
 <nav
     x-data="{ open: false }"
     class="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800"
 >
-
     <div class="navbar">
         <div class="navbar-left">
             <svg
@@ -117,7 +119,9 @@
             </svg>
 
             <span class="nav-btn" onclick="goTo('business')">Business</span>
-            <span class="nav-btn" onclick="goTo('entertainment')">Entertainment</span>
+            <span class="nav-btn" onclick="goTo('entertainment')">
+                Entertainment
+            </span>
             <span class="nav-btn" onclick="goTo('general')">General</span>
             <span class="nav-btn" onclick="goTo('health')">Health</span>
             <span class="nav-btn" onclick="goTo('science')">Science</span>
@@ -125,7 +129,11 @@
             <span class="nav-btn" onclick="goTo('technology')">Technology</span>
         </div>
 
-        <div class="navbar-right" onmouseover="interactWithDropdown()" onmouseout="interactWithDropdown()">
+        <div
+            class="navbar-right"
+            onmouseover="interactWithDropdown()"
+            onmouseout="interactWithDropdown()"
+        >
             <div class="dropdown">
                 <span class="dropbtn" />
                 <div id="myDropdown" class="dropdown-content">
@@ -136,7 +144,8 @@
                         <a
                             onclick="event.preventDefault();
                             this.closest('form').submit();"
-                        >Log out
+                        >
+                            Log out
                         </a>
                     </form>
                 </div>
@@ -144,25 +153,27 @@
         </div>
     </div>
 
-<script>
-    function goTo(pathname) {
-        window.location.replace(pathname)
-    }
-
-    function interactWithDropdown() {
-        document.getElementById("myDropdown").classList.toggle("show");
-    }
-
-    window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
-            }
+    <script>
+        function goTo(pathname) {
+            window.location.replace(pathname);
         }
-    }
-</script>
+
+        function interactWithDropdown() {
+            document.getElementById('myDropdown').classList.toggle('show');
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns =
+                    document.getElementsByClassName('dropdown-content');
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        };
+    </script>
+</nav>
