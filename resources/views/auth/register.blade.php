@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>Laravel</title>
+        <title>News Portal</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net" />
@@ -12,6 +12,7 @@
             href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap"
             rel="stylesheet"
         />
+
         <style>
             /* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */
             *,
@@ -65,21 +66,25 @@
                 transition: 0.3s;
                 color: #ef4444 !important;
             }
-            button {
+            button,
+            x-primary-button {
+                color: #9ca3af !important;
                 transition: 0.3s;
                 border: 1px solid #ef4444;
                 border-radius: 5px;
                 padding: 8px 13px !important;
                 border-color: rgb(156 163 175 / var(--tw-text-opacity));
             }
-            button:hover {
+            button:hover,
+            x-primary-button:hover {
                 transition: 0.3s;
                 color: #ef4444 !important;
                 border-color: #ef4444;
                 cursor: pointer;
             }
             button,
-            input,
+            x-primary-button input,
+            x-text-input,
             optgroup,
             select,
             textarea {
@@ -92,13 +97,15 @@
                 padding: 0;
             }
             button,
+            x-primary-button,
             select {
                 text-transform: none;
             }
             [type='button'],
             [type='reset'],
             [type='submit'],
-            button {
+            button,
+            x-primary-button {
                 -webkit-appearance: button;
                 background-color: transparent;
                 background-image: none;
@@ -109,8 +116,9 @@
             :-moz-ui-invalid {
                 box-shadow: none;
             }
-            input {
-                background-color: #4b5563;
+            input,
+            x-text-input {
+                background-color: #4b5563 !important;
                 color: #9ca3af;
                 font-weight: 700;
                 font-size: 15px !important;
@@ -119,7 +127,8 @@
                 border-radius: 10px;
                 padding: 10px;
             }
-            input::placeholder {
+            input::placeholder,
+            x-text-input::placeholder {
                 opacity: 1;
                 color: #9ca3af;
                 font-weight: 300;
@@ -250,6 +259,12 @@
                     color: rgb(255 255 255 / var(--tw-text-opacity));
                 }
             }
+
+            .error-message {
+                margin-top: -15px;
+                margin-bottom: -15px;
+                color: #ef4444;
+            }
         </style>
     </head>
     <body class="antialiased">
@@ -271,52 +286,109 @@
                     </svg>
                 </div>
 
-                <div class="mt-4 p-2">
-                    <input
-                        class="focus:outline focus:outline-red-500"
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="email"
-                    />
-                </div>
+                <x-auth-session-status :status="session('status')" />
 
-                <div class="p-2">
-                    <input
-                        class="focus:outline focus:outline-red-500"
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="password"
-                    />
-                </div>
+                <form
+                    method="POST"
+                    action="{{ route("register") }}"
+                    class="mt-4"
+                >
+                    @csrf
 
-                <div class="flex justify-center p-2">
-                    <a
-                        href="{{ url("/dashboard") }}"
-                        class="font-semibold text-gray-600 dark:text-gray-400 dark:hover:text-white"
-                    >
-                        Forgot password?
-                    </a>
-                </div>
+                    <div class="flex justify-center p-2">
+                        <x-text-input
+                            id="name"
+                            class="focus:outline focus:outline-red-500"
+                            type="text"
+                            name="name"
+                            :value="old('name')"
+                            required
+                            autofocus
+                            autocomplete="name"
+                            placeholder="username"
+                        />
+                    </div>
 
-                <div class="flex justify-center p-2">
-                    <a
-                        href="{{ url("/dashboard") }}"
-                        class="font-semibold text-gray-600 dark:text-gray-400 dark:hover:text-white"
-                    >
-                        New user registration
-                    </a>
-                </div>
+                    @if ($errors->get("name"))
+                        <div class="error-message flex justify-center">
+                            <x-input-error :messages="$errors->get('name')" />
+                        </div>
+                    @endif
 
-                <div class="flex justify-center p-2">
-                    <button
-                        type="primary"
-                        class="font-semibold text-gray-600 dark:text-gray-400 dark:hover:text-white"
-                    >
-                        Login
-                    </button>
-                </div>
+                    <div class="flex justify-center p-2">
+                        <x-text-input
+                            id="email"
+                            class="focus:outline focus:outline-red-500"
+                            type="email"
+                            name="email"
+                            :value="old('email')"
+                            required
+                            autocomplete="username"
+                            placeholder="email"
+                        />
+                    </div>
+
+                    @if ($errors->get("email"))
+                        <div class="error-message flex justify-center">
+                            <x-input-error :messages="$errors->get('email')" />
+                        </div>
+                    @endif
+
+                    <div class="flex justify-center p-2">
+                        <x-text-input
+                            id="password"
+                            class="focus:outline focus:outline-red-500"
+                            type="password"
+                            name="password"
+                            required
+                            autocomplete="new-password"
+                            placeholder="password"
+                        />
+                    </div>
+
+                    @if ($errors->get("password"))
+                        <div class="error-message flex justify-center">
+                            <x-input-error
+                                :messages="$errors->get('password')"
+                            />
+                        </div>
+                    @endif
+
+                    <div class="flex justify-center p-2">
+                        <x-text-input
+                            id="password_confirmation"
+                            class="focus:outline focus:outline-red-500"
+                            type="password"
+                            name="password_confirmation"
+                            required
+                            autocomplete="new-password"
+                            placeholder="confirm password"
+                        />
+                    </div>
+
+                    @if ($errors->get("password_confirmation"))
+                        <div class="error-message flex justify-center">
+                            <x-input-error
+                                :messages="$errors->get('password_confirmation')"
+                            />
+                        </div>
+                    @endif
+
+                    <div class="flex justify-center p-2">
+                        <a
+                            class="font-semibold text-gray-600 dark:text-gray-400 dark:hover:text-white"
+                            href="{{ route("login") }}"
+                        >
+                            {{ __("Already registered?") }}
+                        </a>
+                    </div>
+
+                    <div class="flex justify-center p-2">
+                        <x-primary-button class="ms-3">
+                            {{ __("Registration") }}
+                        </x-primary-button>
+                    </div>
+                </form>
             </div>
         </div>
     </body>
