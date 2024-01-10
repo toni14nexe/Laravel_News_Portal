@@ -18,8 +18,11 @@
         @vite(["resources/css/app.css", "resources/js/app.js"])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="p-2 bg-dots-darker dark:bg-dots-lighter min-h-screen items-center justify-center bg-gray-100 bg-center selection:bg-red-500 selection:text-white dark:bg-gray-900">
+
             @include("layouts.navigation")
+
+            @include("logged.newest-news")
 
             <!-- Page Heading -->
             @if (isset($header))
