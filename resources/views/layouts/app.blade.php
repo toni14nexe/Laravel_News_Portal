@@ -30,6 +30,14 @@
             font-weight: 700;
             font-size: x-large;
         }
+
+        .pagination {
+            width: 100%;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+        }
     </style>
     <body class="font-sans antialiased">
         <div
@@ -49,6 +57,15 @@
 
             <!-- Page Content -->
             <main>{{ $slot }}</main>
+
+            <!-- Pagination -->
+            @if (isset($pagination))
+                <header>
+                    <div class="pagination">
+                        {{ $pagination }}
+                    </div>
+                </header>
+            @endif
         </div>
     </body>
 </html>

@@ -128,6 +128,9 @@ x-text-input::placeholder {
 .ml-4 {
     margin-left: 1rem;
 }
+.mr-2 {
+    margin-right: 0.5rem;
+}
 .flex {
     display: flex;
 }
@@ -151,6 +154,9 @@ x-text-input::placeholder {
 }
 .justify-center {
     justify-content: center;
+}
+.without-decoration {
+    text-decoration: none !important;
 }
 .bg-gray-100 {
     --tw-bg-opacity: 1;
@@ -394,4 +400,39 @@ x-text-input::placeholder {
     transition: ease-in-out 0.3s;
     color: rgb(55, 65, 81);
     cursor: pointer;
+}
+
+.page-size {
+    display: flex;
+    align-items: center;
+    font-size: medium;
+}
+
+.pagination-link {
+    width: 40px;
+    padding: 0.3rem 0.5rem;
+    margin: 0 0.25rem;
+    border: 1px solid rgb(55, 65, 81);
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.pagination-link:hover,
+.pagination-link:focus {
+    cursor: pointer;
+    color: white !important;
+    background-color: #ef4444;
+    border-color: white;
+}
+
+.pagination-link.active {
+    cursor: auto;
+    color: white !important;
+    background-color: #ef4444;
+    border: 1px solid #ef4444;
+}
+
+.pagination-arrow-fix {
+    font-weight: 700;
 }
