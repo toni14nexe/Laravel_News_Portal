@@ -122,6 +122,12 @@ x-text-input::placeholder {
 .mt-4 {
     margin-top: 1rem;
 }
+.mt-8 {
+    margin-top: 2rem;
+}
+.ml-4 {
+    margin-left: 1rem;
+}
 .flex {
     display: flex;
 }
@@ -246,4 +252,146 @@ x-text-input::placeholder {
     margin-top: -15px;
     margin-bottom: -15px;
     color: #ef4444;
+}
+
+.article-container:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.article {
+    transition: ease-in-out 0.3s;
+    float: left;
+    width: 50%;
+    height: 50vh;
+}
+
+.article-item {
+    transition: ease-in-out 0.3s;
+    border: 2px solid rgb(55 65 81);
+    border-radius: 10px;
+    height: calc(50vh - 2rem);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.article-item:hover {
+    transition: ease-in-out 0.3s;
+    border: 1px solid white;
+    margin: 0.4rem !important;
+    height: calc(50vh - 1.6rem);
+}
+
+.even-articles {
+    margin: 1rem 0.75rem 1rem 1rem;
+}
+
+.odd-articles {
+    margin: 1rem 1rem 1rem 0.75rem;
+}
+
+.article-sub-item {
+    transition: ease-in-out 0.3s;
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.article-sub-item:hover {
+    transition: ease-in-out 0.3s;
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 9px;
+}
+
+.article-text-div {
+    margin: 0 2rem;
+    height: 100%;
+    position: relative;
+}
+
+.article-title {
+    font-size: x-large;
+    font-weight: 700;
+}
+
+.article-description {
+    font-size: large;
+    font-weight: 400;
+}
+
+.article-notes {
+    font-size: medium;
+    font-weight: 700;
+}
+
+.article-top {
+    height: 90%;
+    cursor: pointer;
+}
+
+.article-bottom {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.article-icons {
+    transition: ease-in-out 0.3s;
+    width: 30px;
+    height: 30px;
+}
+
+.article-like-icon {
+    position: absolute;
+    right: 80px;
+    bottom: 5px;
+}
+
+.like-icon:hover {
+    transition: ease-in-out 0.3s;
+    color: green;
+    cursor: pointer;
+}
+
+.article-dislike-icon {
+    position: absolute;
+    right: 40px;
+    bottom: 5px;
+}
+
+.dislike-icon:hover {
+    transition: ease-in-out 0.3s;
+    color: #ef4444;
+    cursor: pointer;
+}
+
+.article-comment-icon {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+}
+
+.comment-icon:hover {
+    transition: ease-in-out 0.3s;
+    color: rgb(55, 65, 81);
+    cursor: pointer;
+}
+
+.article-link-icon {
+    position: absolute;
+    right: 120px;
+    bottom: 5px;
+}
+
+.link-icon {
+    height: 25px;
+}
+
+.link-icon:hover {
+    transition: ease-in-out 0.3s;
+    color: rgb(55, 65, 81);
+    cursor: pointer;
 }
