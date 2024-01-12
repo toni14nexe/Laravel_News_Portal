@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Request;
 
 $page = Request::input("page", 1);
 $pageSize = Request::input("pageSize", 10);
+$searchValue = Request::input("search", "");
 
 $API_Key = env("NEWS_API_KEY", "");
-$url = "https://newsapi.org/v2/top-headlines?language=en&page={$page}&pageSize={$pageSize}&category={$category}&apiKey={$API_Key}";
+$url = "https://newsapi.org/v2/top-headlines?language=en&page={$page}&pageSize={$pageSize}&category={$category}&q={$searchValue}&apiKey={$API_Key}";
 $data = http::get($url)->json();
 $news = $data["articles"];
 
@@ -49,11 +50,15 @@ $pageSizes = [10, 20, 50, 100];
 </style>
 
 <x-app-layout>
-    <x-slot name="header">
-        {{ __("Dashboard") }}
-    </x-slot>
+    @if ($title == "Search")
+        <x-slot name="header">{{ $title }}: {{ $searchValue }}</x-slot>
+    @else
+        <x-slot name="header">
+            {{ $title }}
+        </x-slot>
+    @endif
 
-    @if ($page == 1 && $news[5])
+    @if ($page == 1 && isset($news[5]) && $title != "Search")
         <x-slot name="carousel">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
@@ -86,7 +91,7 @@ $pageSizes = [10, 20, 50, 100];
                         <div class="carousel-caption carousel-right">
                             <span
                                 class="carousel-text article-title"
-                                onclick="openArticle(`{{ $news[0]["url"] }}`)"
+                                onclick="openArticle('{{ json_encode($news[0]) }}')"
                             >
                                 {{ $news[0]["title"] }}
                             </span>
@@ -737,8 +742,9 @@ $pageSizes = [10, 20, 50, 100];
 </x-app-layout>
 
 <script>
-    function openArticle(url) {
-        console.log('Open article on our page: ', url);
+    function openArticle(article) {
+        let articleObject = JSON.parse(article);
+        localStorage.setItem('profileNews', JSON.stringify(articleObject));
     }
 
     function openOriginalArticle(path) {

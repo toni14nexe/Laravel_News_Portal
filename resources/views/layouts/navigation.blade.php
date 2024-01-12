@@ -14,6 +14,7 @@
     }
 
     .navbar-right {
+        display: flex;
         margin-left: auto;
         margin-right: 0px;
     }
@@ -94,6 +95,11 @@
         display: block;
     }
 
+    .search {
+        height: 100%;
+        border-radius: 20px;
+    }
+
     a:hover {
         cursor: pointer;
     }
@@ -134,6 +140,13 @@
             onmouseover="interactWithDropdown()"
             onmouseout="interactWithDropdown()"
         >
+            <div>
+                <x-text-input
+                    class="search mr-4"
+                    placeholder="{{ __('Search') }}"
+                    onkeyup="handleSearch(event)"
+                />
+            </div>
             <div class="dropdown">
                 <span class="dropbtn" />
                 <div id="myDropdown" class="dropdown-content">
@@ -155,7 +168,18 @@
 
     <script>
         function goTo(pathname) {
-            window.location.replace(pathname);
+            window.location.replace(pathname + '?page=1');
+        }
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                var searchValue = event.target.value;
+                search(searchValue);
+            }
+        }
+
+        function search(value) {
+            window.location.replace('search?search=' + value + '&page=1');
         }
 
         function interactWithDropdown() {
