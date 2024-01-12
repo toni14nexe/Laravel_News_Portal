@@ -38,6 +38,11 @@
             justify-content: center;
             justify-items: center;
         }
+
+        .header-padding-fix {
+            padding-left: 1.75rem;
+            padding-right: 1.75rem;
+        }
     </style>
     <body class="font-sans antialiased">
         <div
@@ -47,12 +52,12 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="title">{{ $header }}</header>
+                <header class="title header-padding-fix">{{ $header }}</header>
             @endif
 
             <!-- Page carousel -->
             @if (isset($carousel))
-                <header>{{ $carousel }}</header>
+                <header class="header-padding-fix">{{ $carousel }}</header>
             @endif
 
             <!-- Page Content -->

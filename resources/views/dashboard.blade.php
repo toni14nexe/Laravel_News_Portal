@@ -53,7 +53,7 @@ $pageSizes = [10, 20, 50, 100];
         {{ __("Dashboard") }}
     </x-slot>
 
-    @if ($page == 1)
+    @if ($page == 1 && $news[5])
         <x-slot name="carousel">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
@@ -702,7 +702,7 @@ $pageSizes = [10, 20, 50, 100];
                 @for ($i = 1; $i <= ceil($totalResults / $pageSize); $i++)
                     <a
                         href="javascript:void(0);"
-                        class="pagination-link @if ($i == $page) active @endifwithout-decoration"
+                        class="pagination-link @if ($i == $page) active @endif without-decoration"
                         onclick="changePage({{ $i }}, {{ $page }})"
                     >
                         {{ $i }}

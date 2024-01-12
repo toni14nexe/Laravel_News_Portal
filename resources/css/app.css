@@ -266,6 +266,10 @@ x-text-input::placeholder {
     clear: both;
 }
 
+.carousel-img {
+    border-radius: 10px;
+}
+
 .article {
     transition: ease-in-out 0.3s;
     float: left;
