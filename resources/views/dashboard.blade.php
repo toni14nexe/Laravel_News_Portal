@@ -91,7 +91,7 @@ $pageSizes = [10, 20, 50, 100];
                         <div class="carousel-caption carousel-right">
                             <span
                                 class="carousel-text article-title"
-                                onclick="openArticle('{{ json_encode($news[0]) }}')"
+                                onclick="openArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
                             >
                                 {{ $news[0]["title"] }}
                             </span>
@@ -100,7 +100,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-description"
-                                    onclick="openArticle(`{{ $news[0]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
                                 >
                                     {{ $news[0]["description"] }}
                                 </span>
@@ -111,7 +111,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[0]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
                                 >
                                     {{ $news[0]["source"]["name"] }}
                                 </span>
@@ -124,7 +124,7 @@ $pageSizes = [10, 20, 50, 100];
                             @if (isset($news[0]["author"]))
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[0]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
                                 >
                                     {{ $news[0]["author"] }}
                                 </span>
@@ -135,7 +135,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[0]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
                                 >
                                     {{ date("d / M / Y - h:i", strtotime($news[0]["publishedAt"])) }}
                                     UTC
@@ -146,13 +146,13 @@ $pageSizes = [10, 20, 50, 100];
                             <br />
                             <div class="carousel-btn-div">
                                 <button
-                                    onclick="openArticle(`{{ $news[0]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
                                 >
                                     Go to our page
                                 </button>
                                 <button
                                     class="ml-4"
-                                    onclick="openOriginalArticle(`{{ $news[0]["url"] }}`)"
+                                    onclick="openOriginalArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
                                 >
                                     Go to original page
                                 </button>
@@ -193,7 +193,7 @@ $pageSizes = [10, 20, 50, 100];
                         <div class="carousel-caption carousel-right">
                             <span
                                 class="carousel-text article-title"
-                                onclick="openArticle(`{{ $news[1]["url"] }}`)"
+                                onclick="openArticle(`{{ json_encode($news[1]) }}`)"
                             >
                                 {{ $news[1]["title"] }}
                             </span>
@@ -295,7 +295,7 @@ $pageSizes = [10, 20, 50, 100];
                         <div class="carousel-caption carousel-right">
                             <span
                                 class="carousel-text article-title"
-                                onclick="openArticle(`{{ $news[2]["url"] }}`)"
+                                onclick="openArticle(`{{ json_encode($news[2]) }}`)"
                             >
                                 {{ $news[2]["title"] }}
                             </span>
@@ -742,9 +742,17 @@ $pageSizes = [10, 20, 50, 100];
 </x-app-layout>
 
 <script>
-    function openArticle(article) {
-        let articleObject = JSON.parse(article);
-        localStorage.setItem('profileNews', JSON.stringify(articleObject));
+    function openArticle(title, description, name, author, url, urlToImage, publishedAt) {
+    
+        window.location.replace(
+            'news-profile?title=' + title
+            + '&description=' + description
+            + '&publisher=' + name
+            + '&author=' + author
+            + '&url=' + url
+            + '&imgUrl=' + urlToImage
+            + '&published=' + publishedAt
+        );
     }
 
     function openOriginalArticle(path) {
