@@ -117,6 +117,5 @@
         </form>
 
         <x-logout-footer />
-
     </div>
 </div>

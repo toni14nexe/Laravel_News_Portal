@@ -8,10 +8,8 @@
         justify-content: center;
         display: flex;
         padding: 1rem 0;
-        color: #9CA3AF;
+        color: #9ca3af;
     }
 </style>
 
-<div class="footer">
-    Toni Kolarić, 2024 © All rights reserved
-</div>
+<div class="footer">Toni Kolarić, 2024 © All rights reserved</div>

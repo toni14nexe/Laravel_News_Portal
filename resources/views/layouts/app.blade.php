@@ -68,9 +68,9 @@
             @endif
 
             <header>
-                    <div class="centered">
-                        <x-login-footer />
-                    </div>
+                <div class="centered">
+                    <x-login-footer />
+                </div>
             </header>
         </div>
     </body>

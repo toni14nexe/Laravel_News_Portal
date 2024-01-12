@@ -4,6 +4,4 @@
     }
 </style>
 
-<div class="footer">
-    Toni Kolarić, 2024 © All rights reserved
-</div>
+<div class="footer">Toni Kolarić, 2024 © All rights reserved</div>

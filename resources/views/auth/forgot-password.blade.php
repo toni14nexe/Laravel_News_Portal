@@ -68,5 +68,4 @@
     </div>
 
     <x-logout-footer />
-
 </div>

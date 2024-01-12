@@ -6,7 +6,7 @@ $page = Request::input("page", 1);
 $pageSize = Request::input("pageSize", 10);
 
 $API_Key = env("NEWS_API_KEY", "");
-$url = "https://newsapi.org/v2/top-headlines?language=en&page={$page}&pageSize={$pageSize}&apiKey={$API_Key}";
+$url = "https://newsapi.org/v2/top-headlines?language=en&page={$page}&pageSize={$pageSize}&category={$category}&apiKey={$API_Key}";
 $data = http::get($url)->json();
 $news = $data["articles"];
 
@@ -702,7 +702,7 @@ $pageSizes = [10, 20, 50, 100];
                 @for ($i = 1; $i <= ceil($totalResults / $pageSize); $i++)
                     <a
                         href="javascript:void(0);"
-                        class="pagination-link @if ($i == $page) active @endif without-decoration"
+                        class="pagination-link @if ($i == $page) active @endifwithout-decoration"
                         onclick="changePage({{ $i }}, {{ $page }})"
                     >
                         {{ $i }}
