@@ -66,4 +66,7 @@
             </div>
         </form>
     </div>
+
+    <x-logout-footer />
+
 </div>

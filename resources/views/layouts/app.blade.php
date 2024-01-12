@@ -31,7 +31,7 @@
             font-size: x-large;
         }
 
-        .pagination {
+        .centered {
             width: 100%;
             display: grid;
             align-items: center;
@@ -61,11 +61,17 @@
             <!-- Pagination -->
             @if (isset($pagination))
                 <header>
-                    <div class="pagination">
+                    <div class="centered">
                         {{ $pagination }}
                     </div>
                 </header>
             @endif
+
+            <header>
+                    <div class="centered">
+                        <x-login-footer />
+                    </div>
+            </header>
         </div>
     </body>
 </html>

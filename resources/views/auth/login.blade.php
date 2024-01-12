@@ -98,5 +98,8 @@
                 </x-primary-button>
             </div>
         </form>
+
+        <x-logout-footer />
+
     </div>
 </div>

@@ -69,4 +69,7 @@
             </x-primary-button>
         </div>
     </form>
+
+    <x-logout-footer />
+
 </x-guest-layout>
