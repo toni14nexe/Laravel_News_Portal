@@ -18,6 +18,7 @@ class Comment extends Authenticatable
      */
     protected $fillable = [
         'comment',
+        'username',
         'url',
         'title',
         'imageUrl',

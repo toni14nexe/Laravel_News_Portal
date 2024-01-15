@@ -1,14 +1,19 @@
 <?php
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\DB;
 
-$title = Request::input("title", "");
-$description = Request::input("description", "");
-$publisher = Request::input("publisher", "");
-$author = Request::input("author", "");
-$url = Request::input("url", "");
-$imgUrl = Request::input("imgUrl", "");
-$published = Request::input("published", "");
+$title = Request::input("title", session('title'));
+$description = Request::input("description", session('description'));
+$publisher = Request::input("publisher", session('publisher'));
+$author = Request::input("author", session('author'));
+$url = Request::input("url", session('url'));
+$imgUrl = Request::input("imgUrl", session('imgUrl'));
+$published = Request::input("published", session('published'));
+
+$comments = DB::table('comments')->where('url', $url)->get();;
 ?>
+
+{{$url}}
 
 <style>
     .news-profile-title {
@@ -116,6 +121,10 @@ $published = Request::input("published", "");
     <br>
 
     <x-slot name="comments">
+        @foreach ($comments as $comment)
+            {{ $comment->url }}
+        @endforeach
+
         <form method="POST" action="{{ route("comments.store") }}" class="mt-4">
             @csrf
 
@@ -128,6 +137,8 @@ $published = Request::input("published", "");
             <textarea id="imageUrl" name="imageUrl" class="hidden">{{ $imgUrl }}</textarea>
             <textarea id="publisher" name="publisher" class="hidden">{{ $publisher }}</textarea>
             <textarea id="author" name="author" class="hidden">{{ $author }}</textarea>
+            <textarea id="description" name="description" class="hidden">{{ $description }}</textarea>
+            <textarea id="published" name="published" class="hidden">{{ $published }}</textarea>
 
             @if ($errors->get("comment"))
                 <div class="error-message flex justify-center">

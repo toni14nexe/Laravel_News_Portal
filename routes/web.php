@@ -55,16 +55,14 @@ Route::get('/search', function () {
     return view('dashboard', ['category' => '', 'title' => 'Search']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/news-profile', function () {
-    return view('news-profile', ['users' => App\Models\User::all()]);
-})->middleware(['auth', 'verified'])->name('news-profile', ['users' => App\Models\User::all()]);
+Route::get('/news-profile', [CommentController::class, 'newsProfile'])->name('news-profile');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store', ['users' => App\Models\User::all()]);
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
 require __DIR__.'/auth.php';
