@@ -172,7 +172,7 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
-                                    onclick="openArticle(`{{ $news[0]['url'] }}`)"
+                                    onclick="openArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
                                 />
                             </div>
                         </div>
@@ -193,7 +193,7 @@ $pageSizes = [10, 20, 50, 100];
                         <div class="carousel-caption carousel-right">
                             <span
                                 class="carousel-text article-title"
-                                onclick="openArticle(`{{ json_encode($news[1]) }}`)"
+                                onclick="openArticle(`{{ $news[1]['title'] }}`, `{{ $news[1]['description'] }}`, `{{ $news[1]['source']['name'] }}`, `{{ $news[1]['author'] }}`, `{{ $news[1]['url'] }}`, `{{ $news[1]['urlToImage'] }}`, `{{ $news[1]['publishedAt'] }}`)"
                             >
                                 {{ $news[1]["title"] }}
                             </span>
@@ -202,7 +202,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-description"
-                                    onclick="openArticle(`{{ $news[1]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[1]['title'] }}`, `{{ $news[1]['description'] }}`, `{{ $news[1]['source']['name'] }}`, `{{ $news[1]['author'] }}`, `{{ $news[1]['url'] }}`, `{{ $news[1]['urlToImage'] }}`, `{{ $news[1]['publishedAt'] }}`)"
                                 >
                                     {{ $news[1]["description"] }}
                                 </span>
@@ -213,7 +213,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[1]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[1]['title'] }}`, `{{ $news[1]['description'] }}`, `{{ $news[1]['source']['name'] }}`, `{{ $news[1]['author'] }}`, `{{ $news[1]['url'] }}`, `{{ $news[1]['urlToImage'] }}`, `{{ $news[1]['publishedAt'] }}`)"
                                 >
                                     {{ $news[1]["source"]["name"] }}
                                 </span>
@@ -226,7 +226,7 @@ $pageSizes = [10, 20, 50, 100];
                             @if (isset($news[1]["author"]))
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[1]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[1]['title'] }}`, `{{ $news[1]['description'] }}`, `{{ $news[1]['source']['name'] }}`, `{{ $news[1]['author'] }}`, `{{ $news[1]['url'] }}`, `{{ $news[1]['urlToImage'] }}`, `{{ $news[1]['publishedAt'] }}`)"
                                 >
                                     {{ $news[1]["author"] }}
                                 </span>
@@ -237,7 +237,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[1]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[1]['title'] }}`, `{{ $news[1]['description'] }}`, `{{ $news[1]['source']['name'] }}`, `{{ $news[1]['author'] }}`, `{{ $news[1]['url'] }}`, `{{ $news[1]['urlToImage'] }}`, `{{ $news[1]['publishedAt'] }}`)"
                                 >
                                     {{ date("d / M / Y - h:i", strtotime($news[1]["publishedAt"])) }}
                                     UTC
@@ -248,7 +248,7 @@ $pageSizes = [10, 20, 50, 100];
                             <br />
                             <div class="carousel-btn-div">
                                 <button
-                                    onclick="openArticle(`{{ $news[1]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[1]['title'] }}`, `{{ $news[1]['description'] }}`, `{{ $news[1]['source']['name'] }}`, `{{ $news[1]['author'] }}`, `{{ $news[1]['url'] }}`, `{{ $news[1]['urlToImage'] }}`, `{{ $news[1]['publishedAt'] }}`)"
                                 >
                                     Go to our page
                                 </button>
@@ -274,7 +274,7 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
-                                    onclick="openArticle(`{{ $news[1]['url'] }}`)"
+                                    onclick="openArticle(`{{ $news[1]['title'] }}`, `{{ $news[1]['description'] }}`, `{{ $news[1]['source']['name'] }}`, `{{ $news[1]['author'] }}`, `{{ $news[1]['url'] }}`, `{{ $news[1]['urlToImage'] }}`, `{{ $news[1]['publishedAt'] }}`)"
                                 />
                             </div>
                         </div>
@@ -295,7 +295,7 @@ $pageSizes = [10, 20, 50, 100];
                         <div class="carousel-caption carousel-right">
                             <span
                                 class="carousel-text article-title"
-                                onclick="openArticle(`{{ json_encode($news[2]) }}`)"
+                                onclick="openArticle(`{{ $news[2]['title'] }}`, `{{ $news[2]['description'] }}`, `{{ $news[2]['source']['name'] }}`, `{{ $news[2]['author'] }}`, `{{ $news[2]['url'] }}`, `{{ $news[2]['urlToImage'] }}`, `{{ $news[2]['publishedAt'] }}`)"
                             >
                                 {{ $news[2]["title"] }}
                             </span>
@@ -304,7 +304,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-description"
-                                    onclick="openArticle(`{{ $news[2]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[2]['title'] }}`, `{{ $news[2]['description'] }}`, `{{ $news[2]['source']['name'] }}`, `{{ $news[2]['author'] }}`, `{{ $news[2]['url'] }}`, `{{ $news[2]['urlToImage'] }}`, `{{ $news[2]['publishedAt'] }}`)"
                                 >
                                     {{ $news[2]["description"] }}
                                 </span>
@@ -315,7 +315,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[2]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[2]['title'] }}`, `{{ $news[2]['description'] }}`, `{{ $news[2]['source']['name'] }}`, `{{ $news[2]['author'] }}`, `{{ $news[2]['url'] }}`, `{{ $news[2]['urlToImage'] }}`, `{{ $news[2]['publishedAt'] }}`)"
                                 >
                                     {{ $news[2]["source"]["name"] }}
                                 </span>
@@ -328,7 +328,7 @@ $pageSizes = [10, 20, 50, 100];
                             @if (isset($news[2]["author"]))
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[2]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[2]['title'] }}`, `{{ $news[2]['description'] }}`, `{{ $news[2]['source']['name'] }}`, `{{ $news[2]['author'] }}`, `{{ $news[2]['url'] }}`, `{{ $news[2]['urlToImage'] }}`, `{{ $news[2]['publishedAt'] }}`)"
                                 >
                                     {{ $news[2]["author"] }}
                                 </span>
@@ -339,7 +339,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[2]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[2]['title'] }}`, `{{ $news[2]['description'] }}`, `{{ $news[2]['source']['name'] }}`, `{{ $news[2]['author'] }}`, `{{ $news[2]['url'] }}`, `{{ $news[2]['urlToImage'] }}`, `{{ $news[2]['publishedAt'] }}`)"
                                 >
                                     {{ date("d / M / Y - h:i", strtotime($news[2]["publishedAt"])) }}
                                     UTC
@@ -350,7 +350,7 @@ $pageSizes = [10, 20, 50, 100];
                             <br />
                             <div class="carousel-btn-div">
                                 <button
-                                    onclick="openArticle(`{{ $news[2]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[2]['title'] }}`, `{{ $news[2]['description'] }}`, `{{ $news[2]['source']['name'] }}`, `{{ $news[2]['author'] }}`, `{{ $news[2]['url'] }}`, `{{ $news[2]['urlToImage'] }}`, `{{ $news[2]['publishedAt'] }}`)"
                                 >
                                     Go to our page
                                 </button>
@@ -376,7 +376,7 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
-                                    onclick="openArticle(`{{ $news[2]['url'] }}`)"
+                                    onclick="openArticle(`{{ $news[2]['title'] }}`, `{{ $news[2]['description'] }}`, `{{ $news[2]['source']['name'] }}`, `{{ $news[2]['author'] }}`, `{{ $news[2]['url'] }}`, `{{ $news[2]['urlToImage'] }}`, `{{ $news[2]['publishedAt'] }}`)"
                                 />
                             </div>
                         </div>
@@ -397,7 +397,7 @@ $pageSizes = [10, 20, 50, 100];
                         <div class="carousel-caption carousel-right">
                             <span
                                 class="carousel-text article-title"
-                                onclick="openArticle(`{{ $news[3]["url"] }}`)"
+                                onclick="openArticle(`{{ $news[3]['title'] }}`, `{{ $news[3]['description'] }}`, `{{ $news[3]['source']['name'] }}`, `{{ $news[3]['author'] }}`, `{{ $news[3]['url'] }}`, `{{ $news[3]['urlToImage'] }}`, `{{ $news[3]['publishedAt'] }}`)"
                             >
                                 {{ $news[3]["title"] }}
                             </span>
@@ -406,7 +406,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-description"
-                                    onclick="openArticle(`{{ $news[3]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[3]['title'] }}`, `{{ $news[3]['description'] }}`, `{{ $news[3]['source']['name'] }}`, `{{ $news[3]['author'] }}`, `{{ $news[3]['url'] }}`, `{{ $news[3]['urlToImage'] }}`, `{{ $news[3]['publishedAt'] }}`)"
                                 >
                                     {{ $news[3]["description"] }}
                                 </span>
@@ -417,7 +417,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[3]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[3]['title'] }}`, `{{ $news[3]['description'] }}`, `{{ $news[3]['source']['name'] }}`, `{{ $news[3]['author'] }}`, `{{ $news[3]['url'] }}`, `{{ $news[3]['urlToImage'] }}`, `{{ $news[3]['publishedAt'] }}`)"
                                 >
                                     {{ $news[3]["source"]["name"] }}
                                 </span>
@@ -430,7 +430,7 @@ $pageSizes = [10, 20, 50, 100];
                             @if (isset($news[3]["author"]))
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[3]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[3]['title'] }}`, `{{ $news[3]['description'] }}`, `{{ $news[3]['source']['name'] }}`, `{{ $news[3]['author'] }}`, `{{ $news[3]['url'] }}`, `{{ $news[3]['urlToImage'] }}`, `{{ $news[3]['publishedAt'] }}`)"
                                 >
                                     {{ $news[3]["author"] }}
                                 </span>
@@ -441,7 +441,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[3]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[3]['title'] }}`, `{{ $news[3]['description'] }}`, `{{ $news[3]['source']['name'] }}`, `{{ $news[3]['author'] }}`, `{{ $news[3]['url'] }}`, `{{ $news[3]['urlToImage'] }}`, `{{ $news[3]['publishedAt'] }}`)"
                                 >
                                     {{ date("d / M / Y - h:i", strtotime($news[3]["publishedAt"])) }}
                                     UTC
@@ -452,7 +452,7 @@ $pageSizes = [10, 20, 50, 100];
                             <br />
                             <div class="carousel-btn-div">
                                 <button
-                                    onclick="openArticle(`{{ $news[3]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[3]['title'] }}`, `{{ $news[3]['description'] }}`, `{{ $news[3]['source']['name'] }}`, `{{ $news[3]['author'] }}`, `{{ $news[3]['url'] }}`, `{{ $news[3]['urlToImage'] }}`, `{{ $news[3]['publishedAt'] }}`)"
                                 >
                                     Go to our page
                                 </button>
@@ -478,7 +478,7 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
-                                    onclick="openArticle(`{{ $news[3]['url'] }}`)"
+                                    onclick="openArticle(`{{ $news[3]['title'] }}`, `{{ $news[3]['description'] }}`, `{{ $news[3]['source']['name'] }}`, `{{ $news[3]['author'] }}`, `{{ $news[3]['url'] }}`, `{{ $news[3]['urlToImage'] }}`, `{{ $news[3]['publishedAt'] }}`)"
                                 />
                             </div>
                         </div>
@@ -499,7 +499,7 @@ $pageSizes = [10, 20, 50, 100];
                         <div class="carousel-caption carousel-right">
                             <span
                                 class="carousel-text article-title"
-                                onclick="openArticle(`{{ $news[4]["url"] }}`)"
+                                onclick="openArticle(`{{ $news[4]['title'] }}`, `{{ $news[4]['description'] }}`, `{{ $news[4]['source']['name'] }}`, `{{ $news[4]['author'] }}`, `{{ $news[4]['url'] }}`, `{{ $news[4]['urlToImage'] }}`, `{{ $news[4]['publishedAt'] }}`)"
                             >
                                 {{ $news[4]["title"] }}
                             </span>
@@ -508,7 +508,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-description"
-                                    onclick="openArticle(`{{ $news[4]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[4]['title'] }}`, `{{ $news[4]['description'] }}`, `{{ $news[4]['source']['name'] }}`, `{{ $news[4]['author'] }}`, `{{ $news[4]['url'] }}`, `{{ $news[4]['urlToImage'] }}`, `{{ $news[4]['publishedAt'] }}`)"
                                 >
                                     {{ $news[4]["description"] }}
                                 </span>
@@ -519,7 +519,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[4]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[4]['title'] }}`, `{{ $news[4]['description'] }}`, `{{ $news[4]['source']['name'] }}`, `{{ $news[4]['author'] }}`, `{{ $news[4]['url'] }}`, `{{ $news[4]['urlToImage'] }}`, `{{ $news[4]['publishedAt'] }}`)"
                                 >
                                     {{ $news[4]["source"]["name"] }}
                                 </span>
@@ -532,7 +532,7 @@ $pageSizes = [10, 20, 50, 100];
                             @if (isset($news[4]["author"]))
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[4]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[4]['title'] }}`, `{{ $news[4]['description'] }}`, `{{ $news[4]['source']['name'] }}`, `{{ $news[4]['author'] }}`, `{{ $news[4]['url'] }}`, `{{ $news[4]['urlToImage'] }}`, `{{ $news[4]['publishedAt'] }}`)"
                                 >
                                     {{ $news[4]["author"] }}
                                 </span>
@@ -543,7 +543,7 @@ $pageSizes = [10, 20, 50, 100];
                                 <br />
                                 <span
                                     class="carousel-text article-notes"
-                                    onclick="openArticle(`{{ $news[4]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[4]['title'] }}`, `{{ $news[4]['description'] }}`, `{{ $news[4]['source']['name'] }}`, `{{ $news[4]['author'] }}`, `{{ $news[4]['url'] }}`, `{{ $news[4]['urlToImage'] }}`, `{{ $news[4]['publishedAt'] }}`)"
                                 >
                                     {{ date("d / M / Y - h:i", strtotime($news[4]["publishedAt"])) }}
                                     UTC
@@ -554,7 +554,7 @@ $pageSizes = [10, 20, 50, 100];
                             <br />
                             <div class="carousel-btn-div">
                                 <button
-                                    onclick="openArticle(`{{ $news[4]["url"] }}`)"
+                                    onclick="openArticle(`{{ $news[4]['title'] }}`, `{{ $news[4]['description'] }}`, `{{ $news[4]['source']['name'] }}`, `{{ $news[4]['author'] }}`, `{{ $news[4]['url'] }}`, `{{ $news[4]['urlToImage'] }}`, `{{ $news[4]['publishedAt'] }}`)"
                                 >
                                     Go to our page
                                 </button>
@@ -580,7 +580,7 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
-                                    onclick="openArticle(`{{ $news[4]['url'] }}`)"
+                                    onclick="openArticle(`{{ $news[4]['title'] }}`, `{{ $news[4]['description'] }}`, `{{ $news[4]['source']['name'] }}`, `{{ $news[4]['author'] }}`, `{{ $news[4]['url'] }}`, `{{ $news[4]['urlToImage'] }}`, `{{ $news[4]['publishedAt'] }}`)"
                                 />
                             </div>
                         </div>

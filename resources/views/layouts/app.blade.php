@@ -72,6 +72,15 @@
                 </header>
             @endif
 
+            <!-- Comments -->
+            @if (isset($comments))
+                <header>
+                    <div>
+                        {{ $comments }}
+                    </div>
+                </header>
+            @endif
+
             <header>
                 <div class="centered">
                     <x-login-footer />

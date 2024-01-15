@@ -23,6 +23,7 @@ $published = Request::input("published", "");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
+        border-radius: 5px;
     }
 
     .news-profile-x-large {
@@ -38,9 +39,21 @@ $published = Request::input("published", "");
         justify-content: center;
     }
 
-    .open-btn {
-        width: 250px;
-        height: 60px;
+    .add-comment-main {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .textarea {
+        width: 100%;
+        color: black;
+        border-radius: 5px;
+        padding: 0 0.5rem;
+    }
+
+    .post-comment-btn-layout {
+        display: flex;
+        justify-content: end;
     }
 </style>
 
@@ -94,13 +107,41 @@ $published = Request::input("published", "");
     <br><br>
         <div class="btn-div">
             <button
-                class="open-btn ml-4"
+                class="w-250 ml-4"
                 onclick="openOriginalArticle(`{{ $url }}`)"
             >
                 Open
             </button>
         </div>
     <br>
+
+    <x-slot name="comments">
+        <form method="POST" action="{{ route("comments.store") }}" class="mt-4">
+            @csrf
+
+            <div class="add-comment-main">
+                <textarea class="textarea" id="comment" name="comment" rows="4" placeholder="Comment..."></textarea>    
+            </div>
+
+            <textarea id="url" name="url" class="hidden">{{ $url }}</textarea>
+            <textarea id="title" name="title" class="hidden">{{ $title }}</textarea>
+            <textarea id="imageUrl" name="imageUrl" class="hidden">{{ $imgUrl }}</textarea>
+            <textarea id="publisher" name="publisher" class="hidden">{{ $publisher }}</textarea>
+            <textarea id="author" name="author" class="hidden">{{ $author }}</textarea>
+
+            @if ($errors->get("comment"))
+                <div class="error-message flex justify-center">
+                    <x-input-error :messages="$errors->get('comment')" />
+                </div>
+            @endif
+
+            <div class="post-comment-btn-layout">
+                <button class="mt-4 btn-green w-250">
+                    Post
+                </button>
+            </div>
+        </form>
+    </x-slot>
 </x-app-layout>
 
 <script>

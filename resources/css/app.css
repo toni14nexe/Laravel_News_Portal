@@ -149,6 +149,9 @@ x-text-input::placeholder {
 .min-h-screen {
     min-height: 100vh;
 }
+.w-250 {
+    width: 250px;
+}
 .w-auto {
     width: auto;
 }
@@ -157,6 +160,9 @@ x-text-input::placeholder {
 }
 .justify-center {
     justify-content: center;
+}
+.hidden {
+    display: none;
 }
 .without-decoration {
     text-decoration: none !important;
@@ -234,6 +240,10 @@ x-text-input::placeholder {
 }
 .focus\:outline-red-500:focus {
     outline-color: #ef4444;
+}
+.btn-green:hover {
+    color: lightgreen !important;
+    border-color: lightgreen;
 }
 @media (prefers-color-scheme: dark) {
     .dark\:bg-gray-900 {
