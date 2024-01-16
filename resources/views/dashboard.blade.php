@@ -146,12 +146,13 @@ $pageSizes = [10, 20, 50, 100];
                             <br />
                             <div class="carousel-btn-div">
                                 <button
+                                    class="btn-green"
                                     onclick="openArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
                                 >
                                     Go to our page
                                 </button>
                                 <button
-                                    class="ml-4"
+                                    class="ml-4 btn-green"
                                     onclick="openOriginalArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
                                 >
                                     Go to original page
@@ -248,12 +249,13 @@ $pageSizes = [10, 20, 50, 100];
                             <br />
                             <div class="carousel-btn-div">
                                 <button
+                                    class="btn-green"
                                     onclick="openArticle(`{{ $news[1]['title'] }}`, `{{ $news[1]['description'] }}`, `{{ $news[1]['source']['name'] }}`, `{{ $news[1]['author'] }}`, `{{ $news[1]['url'] }}`, `{{ $news[1]['urlToImage'] }}`, `{{ $news[1]['publishedAt'] }}`)"
                                 >
                                     Go to our page
                                 </button>
                                 <button
-                                    class="ml-4"
+                                    class="ml-4 btn-green"
                                     onclick="openOriginalArticle(`{{ $news[1]["url"] }}`)"
                                 >
                                     Go to original page
@@ -350,12 +352,13 @@ $pageSizes = [10, 20, 50, 100];
                             <br />
                             <div class="carousel-btn-div">
                                 <button
+                                    class="btn-green"
                                     onclick="openArticle(`{{ $news[2]['title'] }}`, `{{ $news[2]['description'] }}`, `{{ $news[2]['source']['name'] }}`, `{{ $news[2]['author'] }}`, `{{ $news[2]['url'] }}`, `{{ $news[2]['urlToImage'] }}`, `{{ $news[2]['publishedAt'] }}`)"
                                 >
                                     Go to our page
                                 </button>
                                 <button
-                                    class="ml-4"
+                                    class="ml-4 btn-green"
                                     onclick="openOriginalArticle(`{{ $news[2]["url"] }}`)"
                                 >
                                     Go to original page
@@ -452,12 +455,13 @@ $pageSizes = [10, 20, 50, 100];
                             <br />
                             <div class="carousel-btn-div">
                                 <button
+                                    class="btn-green"
                                     onclick="openArticle(`{{ $news[3]['title'] }}`, `{{ $news[3]['description'] }}`, `{{ $news[3]['source']['name'] }}`, `{{ $news[3]['author'] }}`, `{{ $news[3]['url'] }}`, `{{ $news[3]['urlToImage'] }}`, `{{ $news[3]['publishedAt'] }}`)"
                                 >
                                     Go to our page
                                 </button>
                                 <button
-                                    class="ml-4"
+                                    class="ml-4 btn-green"
                                     onclick="openOriginalArticle(`{{ $news[3]["url"] }}`)"
                                 >
                                     Go to original page
@@ -554,12 +558,13 @@ $pageSizes = [10, 20, 50, 100];
                             <br />
                             <div class="carousel-btn-div">
                                 <button
+                                    class="btn-green"
                                     onclick="openArticle(`{{ $news[4]['title'] }}`, `{{ $news[4]['description'] }}`, `{{ $news[4]['source']['name'] }}`, `{{ $news[4]['author'] }}`, `{{ $news[4]['url'] }}`, `{{ $news[4]['urlToImage'] }}`, `{{ $news[4]['publishedAt'] }}`)"
                                 >
                                     Go to our page
                                 </button>
                                 <button
-                                    class="ml-4"
+                                    class="ml-4 btn-green"
                                     onclick="openOriginalArticle(`{{ $news[4]["url"] }}`)"
                                 >
                                     Go to original page
@@ -627,7 +632,7 @@ $pageSizes = [10, 20, 50, 100];
                         <div class="article-text-div">
                             <div
                                 class="article-top"
-                                onclick="openArticle(`{{ $item["url"] }}`)"
+                                onclick="openArticle(`{{ $item["title"] }}`, `{{ $item["description"] }}`, `{{ $item["source"]["name"] }}`, `{{ $item["author"] }}`, `{{ $item["url"] }}`, `{{ $item["urlToImage"] }}`, `{{ $item["publishedAt"] }}`)"
                             >
                                 <span class="article-title">
                                     {{ $item["title"] }}
@@ -678,10 +683,6 @@ $pageSizes = [10, 20, 50, 100];
                                 <x-bxs-dislike
                                     class="article-icons article-dislike-icon dislike-icon ml-4"
                                     onclick="dislikeArticle(`{{ $item['url'] }}`)"
-                                />
-                                <x-bxs-comment
-                                    class="article-icons article-comment-icon comment-icon ml-4"
-                                    onclick="openArticle(`{{ $item['url'] }}`)"
                                 />
                             </div>
                         </div>
@@ -744,15 +745,13 @@ $pageSizes = [10, 20, 50, 100];
 <script>
     function openArticle(title, description, name, author, url, urlToImage, publishedAt) {
     
-        window.location.replace(
-            'news-profile?title=' + title
-            + '&description=' + description
-            + '&publisher=' + name
-            + '&author=' + author
-            + '&url=' + url
-            + '&imgUrl=' + urlToImage
-            + '&published=' + publishedAt
-        );
+        window.location.href = 'news-profile?title=' + encodeURIComponent(title)
+            + '&description=' + encodeURIComponent(description)
+            + '&publisher=' + encodeURIComponent(name)
+            + '&author=' + encodeURIComponent(author)
+            + '&url=' + encodeURIComponent(url)
+            + '&imgUrl=' + encodeURIComponent(urlToImage)
+            + '&published=' + encodeURIComponent(publishedAt);
     }
 
     function openOriginalArticle(path) {
