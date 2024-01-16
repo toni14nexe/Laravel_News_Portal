@@ -62,12 +62,32 @@ class CommentController extends Controller
     public function edit(Request $request)
     {
         DB::table('comments')->where('id', $request->input('id'))->update(['comment' => $request->input('comment')]);
+        $comment = DB::table('comments')->where('id', $request->input('id'))->first();
+
+        Session::put('url', $comment->url);
+        Session::put('title', $comment->title);
+        Session::put('imageUrl', $comment->imageUrl);
+        Session::put('publisher', $comment->publisher);
+        Session::put('author', $comment->author);
+        Session::put('description', $request->input('newsDescription'));
+        Session::put('published', $request->input('newsPublished'));
+
         return redirect()->route('news-profile');
     }
 
     public function delete(Request $request)
     {
+        $comment = DB::table('comments')->where('id', $request->input('id'))->first();
         DB::table('comments')->where('id', $request->input('id'))->delete();
+
+        Session::put('url', $comment->url);
+        Session::put('title', $comment->title);
+        Session::put('imageUrl', $comment->imageUrl);
+        Session::put('publisher', $comment->publisher);
+        Session::put('author', $comment->author);
+        Session::put('description', $request->input('newsDescription'));
+        Session::put('published', $request->input('newsPublished'));
+
         return redirect()->route('news-profile');
     }
 }

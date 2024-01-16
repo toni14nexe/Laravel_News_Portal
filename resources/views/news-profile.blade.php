@@ -7,7 +7,7 @@ $description = Request::input("description", session('description'));
 $publisher = Request::input("publisher", session('publisher'));
 $author = Request::input("author", session('author'));
 $url = Request::input("url", session('url'));
-$imgUrl = Request::input("imgUrl", session('imgUrl'));
+$imgUrl = Request::input("imgUrl", session('imageUrl'));
 $published = Request::input("published", session('published'));
 $goTO = Request::input("goTo", session('goTo'));
 
@@ -184,8 +184,8 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
                             <div class="comment-avatar"></div>
                             <span class="ml-2 comment-username">{{ $comment->username }}</span>
                             @if ($comment->username == auth()->user()->name)
-                                <x-bxs-edit class="edit-comment" onclick="editComment({{ json_encode($comment) }})" />
-                                <x-eos-delete class="delete-comment" onclick="deleteComment({{ json_encode($comment) }})" />
+                                <x-bxs-edit class="edit-comment" onclick="editComment({{ json_encode($comment) }}, `{{ $description }}`, `{{ $published }}`)" />
+                                <x-eos-delete class="delete-comment" onclick="deleteComment({{ json_encode($comment) }}, `{{ $description }}`, `{{ $published }}`)" />
                             @endif
                         </div>
                         <div class="mt-2 mb-2">
@@ -244,6 +244,8 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
                     @csrf
                     <span id="commentCreatedAt"></span>
                     <textarea id="editCommentId" name="id" class="hidden"></textarea>
+                    <textarea id="editNewsDescription" name="newsDescription" class="hidden"></textarea>
+                    <textarea id="editNewsPublished" name="newsPublished" class="hidden"></textarea>
                     <textarea class="textarea mt-2" name="comment" rows="4" placeholder="Comment..." id="commentTextarea"></textarea>
                     <div class="post-comment-btn-layout">
                         <button class="mt-4 btn-green w-250">Update</button>
@@ -261,6 +263,8 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
                 <form method="POST" action="{{ route("comments.delete") }}">
                     @csrf
                     <textarea id="deleteCommentId" name="id" class="hidden"></textarea>
+                    <textarea id="deleteNewsDescription" name="newsDescription" class="hidden"></textarea>
+                    <textarea id="deleteNewsPublished" name="newsPublished" class="hidden"></textarea>
                     <span id="deleteCreatedAt"></span>
                     <br>
                     <span id="commentComment" class="delete-modal-comment"></span>
@@ -292,24 +296,33 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
     let commentTextarea = document.getElementById("commentTextarea");
     let commentCreatedAt = document.getElementById("commentCreatedAt");
     let editCommentId = document.getElementById("editCommentId");
+    let editNewsDescription = document.getElementById("editNewsDescription");
+    let editNewsPublished = document.getElementById("editNewsPublished");
 
     let deleteCommentId = document.getElementById("deleteCommentId");
     let deleteCreatedAt = document.getElementById("deleteCreatedAt");
     let commentComment = document.getElementById("commentComment");
+    let deleteNewsDescription = document.getElementById("deleteNewsDescription");
+    let deleteNewsPublished = document.getElementById("deleteNewsPublished");
     
-    function editComment(comment) {
+    function editComment(comment, description, published) {
         localStorage.setItem('editComment', JSON.stringify(comment));
         commentTextarea.value = comment.comment;
         editCommentId.value = comment.id;
         commentCreatedAt.innerText = "Created: " + new Date(comment.created_at).toLocaleString();
+        editNewsDescription.value = description;
+        editNewsPublished.value = published;
         editModal.style.display = "block";
     }
 
-    function deleteComment(comment) {
+    function deleteComment(comment, description, published) {
+        console.log(comment.created_at)
         localStorage.setItem('editComment', JSON.stringify(comment));
         deleteCommentId.value = comment.id;
         deleteCreatedAt.innerText = "Created: " + new Date(comment.created_at).toLocaleString();
         commentComment.innerText = comment.comment;
+        deleteNewsDescription.value = description;
+        deleteNewsPublished.value = published;
         deleteModal.style.display = "block";
     }
 
