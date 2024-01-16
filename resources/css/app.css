@@ -119,11 +119,23 @@ x-text-input::placeholder {
 .relative {
     position: relative;
 }
+.mt-2 {
+    margin-top: 0.5rem;
+}
 .mt-4 {
     margin-top: 1rem;
 }
 .mt-8 {
     margin-top: 2rem;
+}
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+.mb-4 {
+    margin-bottom: 1rem;
+}
+.ml-2 {
+    margin-left: 0.5rem;
 }
 .ml-4 {
     margin-left: 1rem;
@@ -369,19 +381,19 @@ x-text-input::placeholder {
 
 .article-like-icon {
     position: absolute;
-    right: 80px;
+    right: 40px;
     bottom: 5px;
 }
 
 .like-icon:hover {
     transition: ease-in-out 0.3s;
-    color: green;
+    color: lightgreen;
     cursor: pointer;
 }
 
 .article-dislike-icon {
     position: absolute;
-    right: 40px;
+    right: 0px;
     bottom: 5px;
 }
 
@@ -391,21 +403,9 @@ x-text-input::placeholder {
     cursor: pointer;
 }
 
-.article-comment-icon {
-    position: absolute;
-    right: 0;
-    bottom: 5px;
-}
-
-.comment-icon:hover {
-    transition: ease-in-out 0.3s;
-    color: rgb(55, 65, 81);
-    cursor: pointer;
-}
-
 .article-link-icon {
     position: absolute;
-    right: 120px;
+    right: 80px;
     bottom: 5px;
 }
 
@@ -452,4 +452,61 @@ x-text-input::placeholder {
 
 .pagination-arrow-fix {
     font-weight: 700;
+}
+
+.comment {
+    width: 100%;
+    margin-bottom: 1rem;
+    border: 1px solid rgb(55, 65, 81);
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.comment-avatar {
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRurqDVqNGyE7uwIudf05oQUVGEv6Ou5MXOep-QUo2aXg&s");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.comment-top-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.comment-username {
+    font-size: x-large;
+}
+
+.comment-comment {
+    font-size: x-large;
+}
+
+.edit-comment {
+    transition: 0.3s ease-in-out;
+    margin-left: auto;
+    margin-right: 0;
+    width: 30px;
+}
+
+.edit-comment:hover {
+    transition: 0.3s ease-in-out;
+    color: lightgreen;
+    cursor: pointer;
+}
+
+.delete-comment {
+    transition: 0.3s ease-in-out;
+    width: 30px;
+    margin-left: 1rem;
+}
+
+.delete-comment:hover {
+    transition: 0.3s ease-in-out;
+    color: red;
+    cursor: pointer;
 }

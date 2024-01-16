@@ -150,7 +150,6 @@
             <div class="dropdown">
                 <span class="dropbtn" />
                 <div id="myDropdown" class="dropdown-content">
-                    <!-- {{ Auth::user()->name }} -->
                     <a href="profile">Profile</a>
                     <form method="POST" action="{{ route("logout") }}">
                         @csrf

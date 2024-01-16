@@ -10,10 +10,8 @@ $url = Request::input("url", session('url'));
 $imgUrl = Request::input("imgUrl", session('imgUrl'));
 $published = Request::input("published", session('published'));
 
-$comments = DB::table('comments')->where('url', $url)->get();;
+$comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at');
 ?>
-
-{{$url}}
 
 <style>
     .news-profile-title {
@@ -121,9 +119,33 @@ $comments = DB::table('comments')->where('url', $url)->get();;
     <br>
 
     <x-slot name="comments">
-        @foreach ($comments as $comment)
-            {{ $comment->url }}
-        @endforeach
+        @if (count($comments))
+            @foreach ($comments as $comment)
+                <div class="comment">
+                    <div class="comment-top-row">
+                        <div class="comment-avatar"></div>
+                        <span class="ml-2 comment-username">{{ $comment->username }}</span>
+                        @if ($comment->username == auth()->user()->name)
+                            <x-bxs-edit class="edit-comment" />
+                            <x-eos-delete class="delete-comment" />
+                        @endif
+                    </div>
+                    <div class="mt-2 mb-2">
+                        <span class="comment-comment">{{ $comment->comment }}</span>
+                    </div>
+                    <div class="mt-2">
+                        Posted: {{ date("d / M / Y - h:i", strtotime($comment->created_at)) }}
+                    </div>
+                    @if ($comment->created_at != $comment->updated_at)
+                        <div>
+                            Updated: {{ date("d / M / Y - h:i", strtotime($comment->updated_at)) }}
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        @else
+            <spa>This news does not have comments yet...</spa>
+        @endif
 
         <form method="POST" action="{{ route("comments.store") }}" class="mt-4">
             @csrf

@@ -75,7 +75,8 @@
             <!-- Comments -->
             @if (isset($comments))
                 <header>
-                    <div>
+                    <span class="title mb-4">Comments</span>
+                    <div class="mt-2">
                         {{ $comments }}
                     </div>
                 </header>
