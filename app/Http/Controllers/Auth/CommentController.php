@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {   
@@ -27,34 +28,40 @@ class CommentController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'comment' => ['required', 'string'],
-        'url' => ['required', 'string'],
-    ]);
-
-    if (Auth::check()) {
-        $user = Auth::user();
-
-        Comment::create([
-            'comment' => $request->input('comment'),
-            'url' => $request->input('url'),
-            'username' => $user->name,
-            'title' => $request->input('title'),
-            'imageUrl' => $request->input('imageUrl'),
-            'publisher' => $request->input('publisher'),
-            'author' => $request->input('author'),
+    {
+        $request->validate([
+            'comment' => ['required', 'string'],
+            'url' => ['required', 'string'],
         ]);
+
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            Comment::create([
+                'comment' => $request->input('comment'),
+                'url' => $request->input('url'),
+                'username' => $user->name,
+                'title' => $request->input('title'),
+                'imageUrl' => $request->input('imageUrl'),
+                'publisher' => $request->input('publisher'),
+                'author' => $request->input('author'),
+            ]);
+        }
+
+        Session::put('url', $request->input('url'));
+        Session::put('title', $request->input('title'));
+        Session::put('imageUrl', $request->input('imageUrl'));
+        Session::put('publisher', $request->input('publisher'));
+        Session::put('author', $request->input('author'));
+        Session::put('description', $request->input('description'));
+        Session::put('published', $request->input('published'));
+
+        return redirect()->route('news-profile');
     }
 
-    Session::put('url', $request->input('url'));
-    Session::put('title', $request->input('title'));
-    Session::put('imageUrl', $request->input('imageUrl'));
-    Session::put('publisher', $request->input('publisher'));
-    Session::put('author', $request->input('author'));
-    Session::put('description', $request->input('description'));
-    Session::put('published', $request->input('published'));
-
-    return redirect()->route('news-profile');
-}
+    public function edit(Request $request)
+    {
+        DB::table('comments')->where('id', $request->input('id'))->update(['comment' => $request->input('comment')]);
+        return redirect()->route('news-profile');
+    }
 }
