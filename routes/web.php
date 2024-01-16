@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/comments/store', [CommentController::class, 'store'])->name('comments.store');
     Route::match(['post', 'put'], '/comments/edit', [CommentController::class, 'edit'])->name('comments.edit');
+    Route::match(['post', 'delete'], '/comments/delete', [CommentController::class, 'delete'])->name('comments.delete');
 });
 
 require __DIR__.'/auth.php';

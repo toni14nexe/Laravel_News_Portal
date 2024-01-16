@@ -57,14 +57,13 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
 
     .post-comment-btn-layout {
         display: flex;
-        justify-content: end;
+        justify-content: center;
     }
 
     .modal {
-        display: none;
         position: fixed;
         z-index: 1;
-        margin-top: 5%;
+        margin-top: 10%;
         left: 25%;
         top: 0;
         width: 50%;
@@ -72,6 +71,16 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
         overflow: auto;
         background-color: rgb(0,0,0);
         background-color: rgba(0,0,0,0.85);
+        border-radius: 5px;
+        border: 1px solid white;
+    }
+
+    .edit-modal {
+        display: none;
+    }
+
+    .delete-modal {
+        display: none;
     }
 
     .modal-content {
@@ -101,6 +110,10 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
 
     .edit-modal-div {
         padding: 1rem;
+    }
+
+    .delete-modal-comment {
+        font-size: x-large;
     }
 </style>
 
@@ -172,7 +185,7 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
                             <span class="ml-2 comment-username">{{ $comment->username }}</span>
                             @if ($comment->username == auth()->user()->name)
                                 <x-bxs-edit class="edit-comment" onclick="editComment({{ json_encode($comment) }})" />
-                                <x-eos-delete class="delete-comment" />
+                                <x-eos-delete class="delete-comment" onclick="deleteComment({{ json_encode($comment) }})" />
                             @endif
                         </div>
                         <div class="mt-2 mb-2">
@@ -222,8 +235,8 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
         </x-slot>
     </div>
 
-    <div id="editModal" class="modal">
-        <!-- Edit modal content -->
+    <!-- Edit modal content -->
+    <div id="editModal" class="modal edit-modal">
         <div class="edit-modal-content">
             <span class="close" onclick="closeEditModal()">&times;</span>
             <div class="edit-modal-div">
@@ -233,36 +246,31 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
                     <textarea id="editCommentId" name="id" class="hidden"></textarea>
                     <textarea class="textarea mt-2" name="comment" rows="4" placeholder="Comment..." id="commentTextarea"></textarea>
                     <div class="post-comment-btn-layout">
-                        <button class="mt-4 btn-green w-250" onclick="updateComment()">Update</button>
+                        <button class="mt-4 btn-green w-250">Update</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <script>
-        let modal = document.getElementById("editModal");
-        let commentTextarea = document.getElementById("commentTextarea");
-        let commentCreatedAt = document.getElementById("commentCreatedAt");
-        let editCommentId = document.getElementById("editCommentId");
-        
-        function editComment(comment) {
-            localStorage.setItem('editComment', JSON.stringify(comment));
-            commentTextarea.value = comment.comment;
-            editCommentId.value = comment.id;
-            commentCreatedAt.innerText = "Created: " + new Date(comment.created_at).toLocaleString();
-            modal.style.display = "block";
-        }
-
-        function closeEditModal() {
-            modal.style.display = "none";
-            localStorage.removeItem('editComment');
-        }
-
-        function updateComment() {
-            closeEditModal();
-        }
-    </script>
+    <!-- Delete modal content -->
+    <div id="deleteModal" class="modal delete-modal">
+        <div class="edit-modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <div class="edit-modal-div">
+                <form method="POST" action="{{ route("comments.delete") }}">
+                    @csrf
+                    <textarea id="deleteCommentId" name="id" class="hidden"></textarea>
+                    <span id="deleteCreatedAt"></span>
+                    <br>
+                    <span id="commentComment" class="delete-modal-comment"></span>
+                    <div class="post-comment-btn-layout">
+                        <button class="mt-4 w-250">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
 
 <script>
@@ -279,23 +287,39 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
         window.open(path, '_blank');
     }
 
-    btn.onclick = function() {
-        modal.style.display = "block";
+    let editModal = document.getElementById("editModal");
+    let deleteModal = document.getElementById("deleteModal");
+    let commentTextarea = document.getElementById("commentTextarea");
+    let commentCreatedAt = document.getElementById("commentCreatedAt");
+    let editCommentId = document.getElementById("editCommentId");
+
+    let deleteCommentId = document.getElementById("deleteCommentId");
+    let deleteCreatedAt = document.getElementById("deleteCreatedAt");
+    let commentComment = document.getElementById("commentComment");
+    
+    function editComment(comment) {
+        localStorage.setItem('editComment', JSON.stringify(comment));
+        commentTextarea.value = comment.comment;
+        editCommentId.value = comment.id;
+        commentCreatedAt.innerText = "Created: " + new Date(comment.created_at).toLocaleString();
+        editModal.style.display = "block";
     }
 
-    span.onclick = function() {
-        modal.style.display = "none";
+    function deleteComment(comment) {
+        localStorage.setItem('editComment', JSON.stringify(comment));
+        deleteCommentId.value = comment.id;
+        deleteCreatedAt.innerText = "Created: " + new Date(comment.created_at).toLocaleString();
+        commentComment.innerText = comment.comment;
+        deleteModal.style.display = "block";
     }
 
-    window.onclick = function(event) {
-        if (event.target == modal)
-            modal.style.display = "none";
+    function closeEditModal() {
+        editModal.style.display = "none";
+        deleteModal.style.display = "none";
+        localStorage.removeItem('editComment');
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-    if (localStorage.getItem('editComment')) {
-        let storedValue = localStorage.getItem('editComment');
-        document.getElementById('commentTextarea').value = storedValue;
+    function updateComment() {
+        closeEditModal();
     }
-});
 </script>

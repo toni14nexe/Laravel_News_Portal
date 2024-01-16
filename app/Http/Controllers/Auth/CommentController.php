@@ -64,4 +64,10 @@ class CommentController extends Controller
         DB::table('comments')->where('id', $request->input('id'))->update(['comment' => $request->input('comment')]);
         return redirect()->route('news-profile');
     }
+
+    public function delete(Request $request)
+    {
+        DB::table('comments')->where('id', $request->input('id'))->delete();
+        return redirect()->route('news-profile');
+    }
 }
