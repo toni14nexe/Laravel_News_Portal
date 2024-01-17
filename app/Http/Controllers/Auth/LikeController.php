@@ -17,20 +17,29 @@ class LikeController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
 
-            Like::updateOrCreate(
-                [
-                    'userId' => $user->id,
-                    'url' => $request->input('url'),
-                ],
-                [
-                    'type' => 'like',
-                    'url' => $request->input('url'),
-                    'title' => $request->input('title'),
-                    'imageUrl' => $request->input('imageUrl'),
-                    'publisher' => $request->input('publisher'),
-                    'author' => $request->input('author'),
-                ]
-            );
+            $like = Like::where([
+                'userId' => $user->id,
+                'url' => $request->input('url'),
+                'type' => 'like'
+            ])->first();
+
+            if($like) $like->delete();
+            else {
+                Like::updateOrCreate(
+                    [
+                        'userId' => $user->id,
+                        'url' => $request->input('url'),
+                    ],
+                    [
+                        'type' => 'like',
+                        'url' => $request->input('url'),
+                        'title' => $request->input('title'),
+                        'imageUrl' => $request->input('imageUrl'),
+                        'publisher' => $request->input('publisher'),
+                        'author' => $request->input('author'),
+                    ]
+                );
+            }
         }
 
         return Redirect::back();
@@ -43,22 +52,67 @@ class LikeController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
 
-            Like::updateOrCreate(
-                [
-                    'userId' => $user->id,
-                    'url' => $request->input('url'),
-                ],
-                [
-                    'type' => 'dislike',
-                    'url' => $request->input('url'),
-                    'title' => $request->input('title'),
-                    'imageUrl' => $request->input('imageUrl'),
-                    'publisher' => $request->input('publisher'),
-                    'author' => $request->input('author'),
-                ]
-            );
+            $like = Like::where([
+                'userId' => $user->id,
+                'url' => $request->input('url'),
+                'type' => 'dislike'
+            ])->first();
+    
+            if($like) $like->delete();
+            else {
+                Like::updateOrCreate(
+                    [
+                        'userId' => $user->id,
+                        'url' => $request->input('url'),
+                    ],
+                    [
+                        'type' => 'dislike',
+                        'url' => $request->input('url'),
+                        'title' => $request->input('title'),
+                        'imageUrl' => $request->input('imageUrl'),
+                        'publisher' => $request->input('publisher'),
+                        'author' => $request->input('author'),
+                    ]
+                );
+            }
         }
 
         return Redirect::back();
+    }
+
+    public function remove($url)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            Like::where([
+                'userId' => $user->id,
+                'url' => $url,
+            ])->first()->delete();
+
+            return redirect()->route('news-profile');
+        }
+    }
+
+    public function getLikedAndDislikedArticles()
+    {
+        $user = auth()->user();
+
+        if ($user) {            
+            $likedArticles = Like::where([
+                'userId' => $user->id,
+                'type' => 'like',
+            ])->pluck('url')->toArray();
+
+            $dislikedArticles = Like::where([
+                'userId' => $user->id,
+                'type' => 'dislike',
+            ])->pluck('url')->toArray();
+
+            return [
+                'liked' => $likedArticles,
+                'disliked' => $dislikedArticles,
+            ];
+        }
     }
 }

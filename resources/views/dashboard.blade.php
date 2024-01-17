@@ -13,6 +13,8 @@ $news = $data["articles"];
 
 $totalResults = $data["totalResults"];
 $pageSizes = [10, 20, 50, 100];
+
+$likedAndDislikedArticles = $getLikedAndDislikedArticles;
 ?>
 
 <head>
@@ -615,7 +617,7 @@ $pageSizes = [10, 20, 50, 100];
     @endif
 
     <div class="article-container">
-        @foreach ($news as $index => $item)
+        @forelse ($news as $index => $item)
             <div class="article">
                 <div
                     @class([
@@ -678,11 +680,11 @@ $pageSizes = [10, 20, 50, 100];
                                     onclick="openOriginalArticle(`{{ $item['url'] }}`)"
                                 />
                                 <x-bxs-like
-                                    class="article-icons article-like-icon like-icon"
+                                    class="article-icons article-like-icon like-icon {{ Str::contains($item['url'], $likedAndDislikedArticles['liked']) ? 'liked' : '' }}"
                                     onclick="likeArticle({{ json_encode($item) }})"
                                 />
                                 <x-bxs-dislike
-                                    class="article-icons article-dislike-icon dislike-icon"
+                                    class="article-icons article-dislike-icon dislike-icon {{ Str::contains($item['url'], $likedAndDislikedArticles['disliked']) ? 'disliked' : '' }}"
                                     onclick="dislikeArticle({{ json_encode($item) }})"
                                 />
                                 <x-bxs-comment
@@ -694,7 +696,9 @@ $pageSizes = [10, 20, 50, 100];
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <p class="mt-4">No available news.</p>
+        @endforelse
     </div>
 
     <x-slot name="pagination">
@@ -772,7 +776,7 @@ $pageSizes = [10, 20, 50, 100];
             imageUrl: news?.urlToImage,
             publisher: news?.source?.name,
             author: news?.author,
-        })
+        }).then(() => location.reload())
     }
 
     function dislikeArticle(news) {
@@ -782,7 +786,7 @@ $pageSizes = [10, 20, 50, 100];
             imageUrl: news?.urlToImage,
             publisher: news?.source?.name,
             author: news?.author,
-        })
+        }).then(() => location.reload())
     }
 
     function removeReaction(url) {

@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard', ['category' => '', 'title' => 'Dashboard']);
+    return view('dashboard', ['getLikedAndDislikedArticles' => app(LikeController::class)->getLikedAndDislikedArticles(), 'category' => '', 'title' => 'Dashboard']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/business', function () {
@@ -69,7 +69,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/likes/like', [LikeController::class, 'createLike'])->name('likes.create');
     Route::post('/likes/dislike', [LikeController::class, 'createDislike'])->name('dislikes.create');
-    Route::post('/likes/remove', [LikeController::class, 'remove'])->name('dislikes.remove');
 });
 
 require __DIR__.'/auth.php';

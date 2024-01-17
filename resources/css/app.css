@@ -533,3 +533,23 @@ x-text-input::placeholder {
     display: grid;
     justify-items: center;
 }
+
+.liked {
+    transition: 0.3s ease-in-out;
+    color: lightgreen;
+}
+
+.liked:hover {
+    transition: 0.3s ease-in-out;
+    color: white;
+}
+
+.disliked {
+    transition: 0.3s ease-in-out;
+    color: #ef4444;
+}
+
+.disliked:hover {
+    transition: 0.3s ease-in-out;
+    color: white;
+}
