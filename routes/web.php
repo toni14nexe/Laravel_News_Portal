@@ -67,7 +67,9 @@ Route::middleware('auth')->group(function () {
     Route::match(['post', 'put'], '/comments/edit', [CommentController::class, 'edit'])->name('comments.edit');
     Route::match(['post', 'delete'], '/comments/delete', [CommentController::class, 'delete'])->name('comments.delete');
 
-    Route::post('/likes/create', [LikeController::class, 'createLike'])->name('likes.create');
+    Route::post('/likes/like', [LikeController::class, 'createLike'])->name('likes.create');
+    Route::post('/likes/dislike', [LikeController::class, 'createDislike'])->name('dislikes.create');
+    Route::post('/likes/remove', [LikeController::class, 'remove'])->name('dislikes.remove');
 });
 
 require __DIR__.'/auth.php';

@@ -22,6 +22,7 @@ $pageSizes = [10, 20, 50, 100];
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <style>
@@ -165,11 +166,11 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-like
                                     class="article-icons like-icon ml-4"
-                                    onclick="likeArticle(`{{ $news[0]['url'] }}`)"
+                                    onclick="likeArticle({{ json_encode($news[0]) }})"
                                 />
                                 <x-bxs-dislike
                                     class="article-icons dislike-icon ml-4"
-                                    onclick="dislikeArticle(`{{ $news[0]['url'] }}`)"
+                                    onclick="dislikeArticle({{ json_encode($news[0]) }})"
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
@@ -268,11 +269,11 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-like
                                     class="article-icons like-icon ml-4"
-                                    onclick="likeArticle(`{{ $news[1]['url'] }}`)"
+                                    onclick="likeArticle({{ json_encode($news[1]) }})"
                                 />
                                 <x-bxs-dislike
                                     class="article-icons dislike-icon ml-4"
-                                    onclick="dislikeArticle(`{{ $news[1]['url'] }}`)"
+                                    onclick="dislikeArticle({{ json_encode($news[1]) }})"
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
@@ -371,11 +372,11 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-like
                                     class="article-icons like-icon ml-4"
-                                    onclick="likeArticle(`{{ $news[2]['url'] }}`)"
+                                    onclick="likeArticle({{ json_encode($news[2]) }})"
                                 />
                                 <x-bxs-dislike
                                     class="article-icons dislike-icon ml-4"
-                                    onclick="dislikeArticle(`{{ $news[2]['url'] }}`)"
+                                    onclick="dislikeArticle({{ json_encode($news[2]) }})"
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
@@ -474,11 +475,11 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-like
                                     class="article-icons like-icon ml-4"
-                                    onclick="likeArticle(`{{ $news[3]['url'] }}`)"
+                                    onclick="likeArticle({{ json_encode($news[3]) }})"
                                 />
                                 <x-bxs-dislike
                                     class="article-icons dislike-icon ml-4"
-                                    onclick="dislikeArticle(`{{ $news[3]['url'] }}`)"
+                                    onclick="dislikeArticle({{ json_encode($news[3]) }})"
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
@@ -577,11 +578,11 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-like
                                     class="article-icons like-icon ml-4"
-                                    onclick="likeArticle(`{{ $news[4]['url'] }}`)"
+                                    onclick="likeArticle({{ json_encode($news[4]) }})"
                                 />
                                 <x-bxs-dislike
                                     class="article-icons dislike-icon ml-4"
-                                    onclick="dislikeArticle(`{{ $news[4]['url'] }}`)"
+                                    onclick="dislikeArticle({{ json_encode($news[4]) }})"
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
@@ -678,11 +679,11 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-like
                                     class="article-icons article-like-icon like-icon"
-                                    onclick="likeArticle(`{{ $item['url'] }}`)"
+                                    onclick="likeArticle({{ json_encode($item) }})"
                                 />
                                 <x-bxs-dislike
                                     class="article-icons article-dislike-icon dislike-icon ml-4"
-                                    onclick="dislikeArticle(`{{ $item['url'] }}`)"
+                                    onclick="removeReaction(`{{ $item['url'] }}`)"
                                 />
                             </div>
                         </div>
@@ -758,12 +759,30 @@ $pageSizes = [10, 20, 50, 100];
         window.open(path, '_blank');
     }
 
-    function likeArticle(url) {
-        console.log('Like article: ', url);
+    function likeArticle(news) {
+        axios.post('/likes/like', {
+            url: news?.url,
+            title: news?.title,
+            imageUrl: news?.urlToImage,
+            publisher: news?.source?.name,
+            author: news?.author,
+        })
     }
 
-    function dislikeArticle(url) {
-        console.log('Dislike article: ', url);
+    function dislikeArticle(news) {
+        axios.post('/likes/dislike', {
+            url: news?.url,
+            title: news?.title,
+            imageUrl: news?.urlToImage,
+            publisher: news?.source?.name,
+            author: news?.author,
+        })
+    }
+
+    function removeReaction(url) {
+        axios.post('/likes/remove', {
+            url: url
+        })
     }
 
     function changePage(page, currentPage) {
