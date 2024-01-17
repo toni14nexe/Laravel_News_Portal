@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\CommentController;
+use App\Http\Controllers\Auth\LikeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,6 +66,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/comments/store', [CommentController::class, 'store'])->name('comments.store');
     Route::match(['post', 'put'], '/comments/edit', [CommentController::class, 'edit'])->name('comments.edit');
     Route::match(['post', 'delete'], '/comments/delete', [CommentController::class, 'delete'])->name('comments.delete');
+
+    Route::post('/likes/create', [LikeController::class, 'createLike'])->name('likes.create');
 });
 
 require __DIR__.'/auth.php';
