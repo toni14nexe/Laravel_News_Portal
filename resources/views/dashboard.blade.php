@@ -30,8 +30,8 @@ $likedAndDislikedArticles = $getLikedAndDislikedArticles;
 <style>
     .carousel-img {
         width: 60%;
-        min-height: 60vh;
-        max-height: 60vh;
+        min-height: 65vh;
+        max-height: 65vh;
     }
 
     .carousel-right {
@@ -167,11 +167,11 @@ $likedAndDislikedArticles = $getLikedAndDislikedArticles;
                                     onclick="openOriginalArticle(`{{ $news[0]['url'] }}`)"
                                 />
                                 <x-bxs-like
-                                    class="article-icons like-icon ml-4"
+                                    class="article-icons like-icon ml-4 {{ Str::contains($news[0]['url'], $likedAndDislikedArticles['liked']) ? 'liked' : '' }}"
                                     onclick="likeArticle({{ json_encode($news[0]) }})"
                                 />
                                 <x-bxs-dislike
-                                    class="article-icons dislike-icon ml-4"
+                                    class="article-icons dislike-icon ml-4 {{ Str::contains($news[0]['url'], $likedAndDislikedArticles['disliked']) ? 'disliked' : '' }}"
                                     onclick="dislikeArticle({{ json_encode($news[0]) }})"
                                 />
                                 <x-bxs-comment
@@ -270,11 +270,11 @@ $likedAndDislikedArticles = $getLikedAndDislikedArticles;
                                     onclick="openOriginalArticle(`{{ $news[1]['url'] }}`)"
                                 />
                                 <x-bxs-like
-                                    class="article-icons like-icon ml-4"
+                                    class="article-icons like-icon ml-4 {{ Str::contains($news[1]['url'], $likedAndDislikedArticles['liked']) ? 'liked' : '' }}"
                                     onclick="likeArticle({{ json_encode($news[1]) }})"
                                 />
                                 <x-bxs-dislike
-                                    class="article-icons dislike-icon ml-4"
+                                    class="article-icons dislike-icon ml-4 {{ Str::contains($news[1]['url'], $likedAndDislikedArticles['disliked']) ? 'disliked' : '' }}"
                                     onclick="dislikeArticle({{ json_encode($news[1]) }})"
                                 />
                                 <x-bxs-comment
@@ -373,11 +373,11 @@ $likedAndDislikedArticles = $getLikedAndDislikedArticles;
                                     onclick="openOriginalArticle(`{{ $news[2]['url'] }}`)"
                                 />
                                 <x-bxs-like
-                                    class="article-icons like-icon ml-4"
+                                    class="article-icons like-icon ml-4 {{ Str::contains($news[2]['url'], $likedAndDislikedArticles['liked']) ? 'liked' : '' }}"
                                     onclick="likeArticle({{ json_encode($news[2]) }})"
                                 />
                                 <x-bxs-dislike
-                                    class="article-icons dislike-icon ml-4"
+                                    class="article-icons dislike-icon ml-4 {{ Str::contains($news[2]['url'], $likedAndDislikedArticles['disliked']) ? 'disliked' : '' }}"
                                     onclick="dislikeArticle({{ json_encode($news[2]) }})"
                                 />
                                 <x-bxs-comment
@@ -476,11 +476,11 @@ $likedAndDislikedArticles = $getLikedAndDislikedArticles;
                                     onclick="openOriginalArticle(`{{ $news[3]['url'] }}`)"
                                 />
                                 <x-bxs-like
-                                    class="article-icons like-icon ml-4"
+                                    class="article-icons like-icon ml-4 {{ Str::contains($news[3]['url'], $likedAndDislikedArticles['liked']) ? 'liked' : '' }}"
                                     onclick="likeArticle({{ json_encode($news[3]) }})"
                                 />
                                 <x-bxs-dislike
-                                    class="article-icons dislike-icon ml-4"
+                                    class="article-icons dislike-icon ml-4 {{ Str::contains($news[3]['url'], $likedAndDislikedArticles['disliked']) ? 'disliked' : '' }}"
                                     onclick="dislikeArticle({{ json_encode($news[3]) }})"
                                 />
                                 <x-bxs-comment
@@ -579,11 +579,11 @@ $likedAndDislikedArticles = $getLikedAndDislikedArticles;
                                     onclick="openOriginalArticle(`{{ $news[4]['url'] }}`)"
                                 />
                                 <x-bxs-like
-                                    class="article-icons like-icon ml-4"
+                                    class="article-icons like-icon ml-4 {{ Str::contains($news[4]['url'], $likedAndDislikedArticles['liked']) ? 'liked' : '' }}"
                                     onclick="likeArticle({{ json_encode($news[4]) }})"
                                 />
                                 <x-bxs-dislike
-                                    class="article-icons dislike-icon ml-4"
+                                    class="article-icons dislike-icon ml-4 {{ Str::contains($news[4]['url'], $likedAndDislikedArticles['disliked']) ? 'disliked' : '' }}"
                                     onclick="dislikeArticle({{ json_encode($news[4]) }})"
                                 />
                                 <x-bxs-comment

@@ -25,35 +25,35 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/business', function () {
-    return view('dashboard', ['category' => 'business', 'title' => 'Business']);
+    return view('dashboard', ['getLikedAndDislikedArticles' => app(LikeController::class)->getLikedAndDislikedArticles(), 'category' => 'business', 'title' => 'Business']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/entertainment', function () {
-    return view('dashboard', ['category' => 'entertainment', 'title' => 'Entertainment']);
+    return view('dashboard', ['getLikedAndDislikedArticles' => app(LikeController::class)->getLikedAndDislikedArticles(), 'category' => 'entertainment', 'title' => 'Entertainment']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/general', function () {
-    return view('dashboard', ['category' => 'general', 'title' => 'General']);
+    return view('dashboard', ['getLikedAndDislikedArticles' => app(LikeController::class)->getLikedAndDislikedArticles(), 'category' => 'general', 'title' => 'General']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/health', function () {
-    return view('dashboard', ['category' => 'health', 'title' => 'Health']);
+    return view('dashboard', ['getLikedAndDislikedArticles' => app(LikeController::class)->getLikedAndDislikedArticles(), 'category' => 'health', 'title' => 'Health']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/science', function () {
-    return view('dashboard', ['category' => 'science', 'title' => 'Science']);
+    return view('dashboard', ['getLikedAndDislikedArticles' => app(LikeController::class)->getLikedAndDislikedArticles(), 'category' => 'science', 'title' => 'Science']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/sports', function () {
-    return view('dashboard', ['category' => 'sports', 'title' => 'Sports']);
+    return view('dashboard', ['getLikedAndDislikedArticles' => app(LikeController::class)->getLikedAndDislikedArticles(), 'category' => 'sports', 'title' => 'Sports']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/technology', function () {
-    return view('dashboard', ['category' => 'technology', 'title' => 'Technology']);
+    return view('dashboard', ['getLikedAndDislikedArticles' => app(LikeController::class)->getLikedAndDislikedArticles(), 'category' => 'technology', 'title' => 'Technology']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/search', function () {
-    return view('dashboard', ['category' => '', 'title' => 'Search']);
+    return view('dashboard', ['getLikedAndDislikedArticles' => app(LikeController::class)->getLikedAndDislikedArticles(), 'category' => '', 'title' => 'Search']);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/news-profile', [CommentController::class, 'newsProfile'])->name('news-profile');
