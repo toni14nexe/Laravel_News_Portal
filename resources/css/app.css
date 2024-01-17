@@ -191,6 +191,12 @@ x-text-input::placeholder {
     --tw-gradient-to: rgb(55 65 81 / 0);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+.color-red {
+    color: #ef4444;
+}
+.color-green {
+    color: lightgreen;
+}
 .via-transparent {
     --tw-gradient-to: rgb(0 0 0 / 0);
     --tw-gradient-stops: var(--tw-gradient-from), transparent,
@@ -509,4 +515,9 @@ x-text-input::placeholder {
     transition: 0.3s ease-in-out;
     color: red;
     cursor: pointer;
+}
+
+.profile-settings-btn-div {
+    display: grid;
+    justify-items: center;
 }
