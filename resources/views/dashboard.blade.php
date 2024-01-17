@@ -173,8 +173,8 @@ $pageSizes = [10, 20, 50, 100];
                                     onclick="dislikeArticle({{ json_encode($news[0]) }})"
                                 />
                                 <x-bxs-comment
-                                    class="article-icons comment-icon ml-4"
-                                    onclick="openArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`)"
+                                    class="article-icons link-icon ml-4"
+                                    onclick="openArticle(`{{ $news[0]['title'] }}`, `{{ $news[0]['description'] }}`, `{{ $news[0]['source']['name'] }}`, `{{ $news[0]['author'] }}`, `{{ $news[0]['url'] }}`, `{{ $news[0]['urlToImage'] }}`, `{{ $news[0]['publishedAt'] }}`, '&goTo=comments')"
                                 />
                             </div>
                         </div>
@@ -277,7 +277,7 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
-                                    onclick="openArticle(`{{ $news[1]['title'] }}`, `{{ $news[1]['description'] }}`, `{{ $news[1]['source']['name'] }}`, `{{ $news[1]['author'] }}`, `{{ $news[1]['url'] }}`, `{{ $news[1]['urlToImage'] }}`, `{{ $news[1]['publishedAt'] }}`)"
+                                    onclick="openArticle(`{{ $news[1]['title'] }}`, `{{ $news[1]['description'] }}`, `{{ $news[1]['source']['name'] }}`, `{{ $news[1]['author'] }}`, `{{ $news[1]['url'] }}`, `{{ $news[1]['urlToImage'] }}`, `{{ $news[1]['publishedAt'] }}`, '&goTo=comments')"
                                 />
                             </div>
                         </div>
@@ -380,7 +380,7 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
-                                    onclick="openArticle(`{{ $news[2]['title'] }}`, `{{ $news[2]['description'] }}`, `{{ $news[2]['source']['name'] }}`, `{{ $news[2]['author'] }}`, `{{ $news[2]['url'] }}`, `{{ $news[2]['urlToImage'] }}`, `{{ $news[2]['publishedAt'] }}`)"
+                                    onclick="openArticle(`{{ $news[2]['title'] }}`, `{{ $news[2]['description'] }}`, `{{ $news[2]['source']['name'] }}`, `{{ $news[2]['author'] }}`, `{{ $news[2]['url'] }}`, `{{ $news[2]['urlToImage'] }}`, `{{ $news[2]['publishedAt'] }}`, '&goTo=comments')"
                                 />
                             </div>
                         </div>
@@ -483,7 +483,7 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
-                                    onclick="openArticle(`{{ $news[3]['title'] }}`, `{{ $news[3]['description'] }}`, `{{ $news[3]['source']['name'] }}`, `{{ $news[3]['author'] }}`, `{{ $news[3]['url'] }}`, `{{ $news[3]['urlToImage'] }}`, `{{ $news[3]['publishedAt'] }}`)"
+                                    onclick="openArticle(`{{ $news[3]['title'] }}`, `{{ $news[3]['description'] }}`, `{{ $news[3]['source']['name'] }}`, `{{ $news[3]['author'] }}`, `{{ $news[3]['url'] }}`, `{{ $news[3]['urlToImage'] }}`, `{{ $news[3]['publishedAt'] }}`, '&goTo=comments')"
                                 />
                             </div>
                         </div>
@@ -586,7 +586,7 @@ $pageSizes = [10, 20, 50, 100];
                                 />
                                 <x-bxs-comment
                                     class="article-icons comment-icon ml-4"
-                                    onclick="openArticle(`{{ $news[4]['title'] }}`, `{{ $news[4]['description'] }}`, `{{ $news[4]['source']['name'] }}`, `{{ $news[4]['author'] }}`, `{{ $news[4]['url'] }}`, `{{ $news[4]['urlToImage'] }}`, `{{ $news[4]['publishedAt'] }}`)"
+                                    onclick="openArticle(`{{ $news[4]['title'] }}`, `{{ $news[4]['description'] }}`, `{{ $news[4]['source']['name'] }}`, `{{ $news[4]['author'] }}`, `{{ $news[4]['url'] }}`, `{{ $news[4]['urlToImage'] }}`, `{{ $news[4]['publishedAt'] }}`, '&goTo=comments')"
                                 />
                             </div>
                         </div>
@@ -674,7 +674,7 @@ $pageSizes = [10, 20, 50, 100];
                                 @endif
 
                                 <x-vaadin-link
-                                    class="article-icons article-link-icon link-icon ml-4"
+                                    class="article-icons article-link-icon link-icon"
                                     onclick="openOriginalArticle(`{{ $item['url'] }}`)"
                                 />
                                 <x-bxs-like
@@ -682,8 +682,12 @@ $pageSizes = [10, 20, 50, 100];
                                     onclick="likeArticle({{ json_encode($item) }})"
                                 />
                                 <x-bxs-dislike
-                                    class="article-icons article-dislike-icon dislike-icon ml-4"
-                                    onclick="removeReaction(`{{ $item['url'] }}`)"
+                                    class="article-icons article-dislike-icon dislike-icon"
+                                    onclick="dislikeArticle({{ json_encode($item) }})"
+                                />
+                                <x-bxs-comment
+                                    class="article-icons article-comment-icon"
+                                    onclick="openArticle(`{{ $item['title'] }}`, `{{ $item['description'] }}`, `{{ $item['source']['name'] }}`, `{{ $item['author'] }}`, `{{ $item['url'] }}`, `{{ $item['urlToImage'] }}`, `{{ $item['publishedAt'] }}`, '&goTo=comments')"
                                 />
                             </div>
                         </div>
@@ -744,7 +748,8 @@ $pageSizes = [10, 20, 50, 100];
 </x-app-layout>
 
 <script>
-    function openArticle(title, description, name, author, url, urlToImage, publishedAt) {
+    function openArticle(title, description, name, author, url, urlToImage, publishedAt, goTo) {
+        goTo = goTo ? goTo : '';
     
         window.location.href = 'news-profile?title=' + encodeURIComponent(title)
             + '&description=' + encodeURIComponent(description)
@@ -752,7 +757,8 @@ $pageSizes = [10, 20, 50, 100];
             + '&author=' + encodeURIComponent(author)
             + '&url=' + encodeURIComponent(url)
             + '&imgUrl=' + encodeURIComponent(urlToImage)
-            + '&published=' + encodeURIComponent(publishedAt);
+            + '&published=' + encodeURIComponent(publishedAt)
+            + goTo
     }
 
     function openOriginalArticle(path) {
