@@ -1,3 +1,9 @@
+<?php
+    $currentUrl = $_SERVER['REQUEST_URI'];
+    $urlSegments = explode('/', trim($currentUrl, '/'));
+    $category = end($urlSegments);
+?>
+
 <style>
     .navbar {
         background-color: rgba(255, 255, 255, 0.08);
@@ -28,10 +34,14 @@
 
     .nav-btn:hover {
         transition: ease-in-out 0.3s;
-        text-decoration: underline;
-        text-underline-offset: 10px;
         cursor: pointer;
         padding-left: 1.5rem;
+    }
+
+    .active,
+    .nav-btn:hover {
+        text-decoration: underline;
+        text-underline-offset: 10px;
     }
 
     .logo {
@@ -124,15 +134,15 @@
                 />
             </svg>
 
-            <span class="nav-btn" onclick="goTo('business')">Business</span>
-            <span class="nav-btn" onclick="goTo('entertainment')">
+            <span class="nav-btn @if(stripos($category, 'business') !== false) active @endif" onclick="goTo('business')">Business</span>
+            <span class="nav-btn @if(stripos($category, 'entertainment') !== false) active @endif" onclick="goTo('entertainment')">
                 Entertainment
             </span>
-            <span class="nav-btn" onclick="goTo('general')">General</span>
-            <span class="nav-btn" onclick="goTo('health')">Health</span>
-            <span class="nav-btn" onclick="goTo('science')">Science</span>
-            <span class="nav-btn" onclick="goTo('sports')">Sports</span>
-            <span class="nav-btn" onclick="goTo('technology')">Technology</span>
+            <span class="nav-btn @if(stripos($category, 'general') !== false) active @endif" onclick="goTo('general')">General</span>
+            <span class="nav-btn @if(stripos($category, 'health') !== false) active @endif" onclick="goTo('health')">Health</span>
+            <span class="nav-btn @if(stripos($category, 'science') !== false) active @endif" onclick="goTo('science')">Science</span>
+            <span class="nav-btn @if(stripos($category, 'sports') !== false) active @endif" onclick="goTo('sports')">Sports</span>
+            <span class="nav-btn @if(stripos($category, 'technology') !== false) active @endif" onclick="goTo('technology')">Technology</span>
         </div>
 
         <div
