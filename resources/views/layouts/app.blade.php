@@ -51,6 +51,17 @@
             @include("layouts.navigation")
 
             <!-- Page Heading -->
+            @if (isset($activityNavigation))
+                <header class="header-padding-fix">
+                    <div class="centered">
+                        <div>
+                            {{ $activityNavigation }}
+                        </div>
+                    </div>
+                </header>
+            @endif
+
+            <!-- Page Heading -->
             @if (isset($header))
                 <header class="title header-padding-fix">{{ $header }}</header>
             @endif

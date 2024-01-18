@@ -151,6 +151,7 @@
                 <span class="dropbtn" />
                 <div id="myDropdown" class="dropdown-content">
                     <a href="profile">Profile</a>
+                    <a href="comments">Activity</a>
                     <form method="POST" action="{{ route("logout") }}">
                         @csrf
                         <a

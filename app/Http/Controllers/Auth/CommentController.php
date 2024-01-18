@@ -90,4 +90,12 @@ class CommentController extends Controller
 
         return redirect()->route('news-profile');
     }
+
+    public function activity(Request $request)
+    {
+        $userName = Auth::user()->name;
+        $comments = Comment::where('username', $userName)->get()->sortBy('created_at');
+
+        return view('activity', ['title' => 'Comments','items' => $comments]);
+    }
 }

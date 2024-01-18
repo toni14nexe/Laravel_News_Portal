@@ -115,4 +115,20 @@ class LikeController extends Controller
             ];
         }
     }
+
+    public function likeActivity(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $comments = Like::where(['userId' => $userId, 'type' => 'like'])->get()->sortBy('created_at');
+
+        return view('activity', ['title' => 'Likes','items' => $comments]);
+    }
+
+    public function dislikeActivity(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $comments = Like::where(['userId' => $userId, 'type' => 'dislike'])->get()->sortBy('created_at');
+
+        return view('activity', ['title' => 'Dislikes','items' => $comments]);
+    }
 }

@@ -63,6 +63,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/comments', [CommentController::class, 'activity']);
+    Route::get('/likes', [LikeController::class, 'likeActivity']);
+    Route::get('/dislikes', [LikeController::class, 'dislikeActivity']);
+
     Route::post('/comments/store', [CommentController::class, 'store'])->name('comments.store');
     Route::match(['post', 'put'], '/comments/edit', [CommentController::class, 'edit'])->name('comments.edit');
     Route::match(['post', 'delete'], '/comments/delete', [CommentController::class, 'delete'])->name('comments.delete');
