@@ -11,6 +11,9 @@ $imgUrl = Request::input("imgUrl", session('imageUrl'));
 $published = Request::input("published", session('published'));
 $goTO = Request::input("goTo", session('goTo'));
 
+$likeStatus = DB::table('likes')->where('userId', auth()->user()->id)->where('url', $url)->pluck('type')->first();
+$dislikeClass = ($likeStatus === 'dislike') ? 'news-dislike-icon-active' : '';
+$likeClass = ($likeStatus === 'like') ? 'news-like-icon-active' : '';
 $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at');
 ?>
 
@@ -39,8 +42,43 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
     }
 
     .btn-div {
-        display: flex;
+        display:grid;
         justify-content: center;
+        align-items: center;
+    }
+
+    .news-like-icon,
+    .news-like-icon-active,
+    .news-dislike-icon,
+    .news-dislike-icon-active {
+        transition: ease-in-out 0.3s;
+        cursor: pointer;
+    }
+
+
+    .news-like-icon,
+    .news-dislike-icon {
+        height: 40px;
+        position: absolute;
+    }
+
+    .news-like-icon:hover,
+    .news-like-icon-active {
+        color: lightgreen;
+    }
+
+    .news-like-icon-active:hover,
+    .news-dislike-icon-active:hover {
+        color: white !important;
+    }
+
+    .news-dislike-icon {
+        margin-left: 3.5rem;
+    }
+
+    .news-dislike-icon:hover,
+    .news-dislike-icon-active {
+        color: #ef4444;
     }
 
     .add-comment-main {
@@ -166,6 +204,14 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
 
     <br><br>
         <div class="btn-div">
+            <x-bxs-like
+                class="news-like-icon {{ $likeClass }}"
+                onclick="likeArticle(`{{ $url }}`, `{{ $title }}`, `{{ $imgUrl }}`, `{{ $publisher }}`, `{{ $author }}`)"
+            />
+            <x-bxs-dislike
+                class="news-dislike-icon {{ $dislikeClass }}"
+                onclick="dislikeArticle(`{{ $url }}`, `{{ $title }}`, `{{ $imgUrl }}`, `{{ $publisher }}`, `{{ $author }}`)"
+            />
             <button
                 class="w-250 ml-4 btn-green"
                 onclick="openOriginalArticle(`{{ $url }}`)"
@@ -334,5 +380,25 @@ $comments = DB::table('comments')->where('url', $url)->get()->sortBy('created_at
 
     function updateComment() {
         closeEditModal();
+    }
+
+    function likeArticle(url, title, urlToImg, publisher, author) {
+        axios.post('/likes/like', {
+            url: url,
+            title: title,
+            imageUrl: urlToImg,
+            publisher: publisher,
+            author: author,
+        }).then(() => location.reload())
+    }
+
+    function dislikeArticle(url, title, urlToImg, publisher, author) {
+        axios.post('/likes/dislike', {
+            url: url,
+            title: title,
+            imageUrl: urlToImg,
+            publisher: publisher,
+            author: author,
+        }).then(() => location.reload())
     }
 </script>
