@@ -1,4 +1,5 @@
 @vite(["resources/css/app.css"])
+<link rel="icon" type="image/x-icon" href="laravel.svg">
 
 <div
     class="bg-dots-darker dark:bg-dots-lighter relative flex min-h-screen items-center justify-center bg-gray-100 bg-center selection:bg-red-500 selection:text-white dark:bg-gray-900"

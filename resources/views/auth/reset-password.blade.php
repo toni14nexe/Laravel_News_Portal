@@ -1,4 +1,5 @@
 @vite(["resources/css/app.css"])
+<link rel="icon" type="image/x-icon" href="laravel.svg">
 
 <x-guest-layout>
     <form method="POST" action="{{ route("password.store") }}">
