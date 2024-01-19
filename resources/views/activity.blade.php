@@ -1,3 +1,11 @@
+<?php
+use Illuminate\Support\Facades\Request;
+
+$page = Request::input("page", 1);
+$pageSizes = [10, 20, 50, 100];
+$pageSize = Request::input("pageSize", 10);
+?>
+
 <style>
     .activity-nav-btn {
         transition: ease-in-out 0.3s;
@@ -112,6 +120,58 @@
                 </div>
             </div>
         @endforeach
+    </div>
+
+    <x-slot name="pagination">
+        @if ($totalResults > $pageSize)
+            <div class="page-size">
+                @if ($page > 1)
+                    <a
+                        href="javascript:void(0);"
+                        class="pagination-link without-decoration"
+                        onclick="changePage({{ $page - 1 }}, {{ $page }})"
+                    >
+                        <span class="pagination-arrow-fix"><</span>
+                    </a>
+                @endif
+
+                @for ($i = 1; $i <= ceil($totalResults / $pageSize); $i++)
+                    <a
+                        href="javascript:void(0);"
+                        class="pagination-link @if ($i == $page) active @endif without-decoration"
+                        onclick="changePage({{ $i }}, {{ $page }})"
+                    >
+                        {{ $i }}
+                    </a>
+                @endfor
+
+                @if (ceil($totalResults / $pageSize) != $page)
+                    <a
+                        href="javascript:void(0);"
+                        class="pagination-link without-decoration"
+                        onclick="changePage({{ $page + 1 }}, {{ $page }})"
+                    >
+                        <span class="pagination-arrow-fix">></span>
+                    </a>
+                @endif
+            </div>
+        @endif
+
+        <div class="page-size @if($totalResults > $pageSize) mt-4 @endif">
+            <span class="mr-2">News per page:</span>
+            @foreach ($pageSizes as $option)
+                <a
+                    href="javascript:void(0);"
+                    class="pagination-link @if($option == $pageSize) active @endif without-decoration"
+                    onclick="changePageSize({{ $option }}, {{ $pageSize }})"
+                >
+                    {{ $option }}
+                </a>
+            @endforeach
+        </div>
+    </x-slot>
+
+
 </x-app-layout>
 
 <script>
@@ -128,5 +188,35 @@
 
     function goToActivity(link) {
         window.location.href = link
+    }
+
+    function changePage(page, currentPage) {
+        if (page !== currentPage) {
+            var url = window.location.href;
+            url = url.replace(/([?&])page=\d+/g, '');
+
+            var separator = url.includes('?') ? '&' : '?';
+            url += (url.includes('?') ? '&' : '?') + 'page=' + page;
+
+            window.location.href = url;
+        }
+    }
+
+    function changePageSize(size, currentSize) {
+        if (size !== currentSize) {
+            var url = window.location.href;
+            url = url
+                .replace(/([?&])pageSize=\d+/g, '')
+                .replace(/([?&])page=\d+/g, '');
+
+            var separator = url.includes('?') ? '&' : '?';
+            url +=
+                (url.includes('?') ? '&' : '?') +
+                'pageSize=' +
+                size +
+                '&page=1';
+
+            window.location.href = url;
+        }
     }
 </script>

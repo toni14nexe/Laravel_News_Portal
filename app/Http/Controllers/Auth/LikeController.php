@@ -119,16 +119,20 @@ class LikeController extends Controller
     public function likeActivity(Request $request)
     {
         $userId = Auth::user()->id;
-        $comments = Like::where(['userId' => $userId, 'type' => 'like'])->get()->sortBy('created_at');
+        $pageSize = $request->input('pageSize', 10);
+        $totalResults = Like::where(['userId' => $userId, 'type' => 'like'])->count();
+        $likes = Like::where(['userId' => $userId, 'type' => 'like'])->orderByDesc('created_at')->paginate($pageSize);
 
-        return view('activity', ['title' => 'Likes','items' => $comments]);
+        return view('activity', ['title' => 'Likes','items' => $likes, 'totalResults' => $totalResults]);
     }
 
     public function dislikeActivity(Request $request)
     {
         $userId = Auth::user()->id;
-        $comments = Like::where(['userId' => $userId, 'type' => 'dislike'])->get()->sortBy('created_at');
+        $pageSize = $request->input('pageSize', 10);
+        $totalResults = Like::where(['userId' => $userId, 'type' => 'dislike'])->count();
+        $dislikes = Like::where(['userId' => $userId, 'type' => 'dislike'])->orderByDesc('created_at')->paginate($pageSize);
 
-        return view('activity', ['title' => 'Dislikes','items' => $comments]);
+        return view('activity', ['title' => 'Dislikes','items' => $dislikes, 'totalResults' => $totalResults]);
     }
 }

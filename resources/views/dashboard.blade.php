@@ -736,7 +736,7 @@ $likedAndDislikedArticles = $getLikedAndDislikedArticles;
             </div>
         @endif
 
-        <div class="page-size mt-8">
+        <div class="page-size @if($totalResults > $pageSize) mt-4 @endif">
             <span class="mr-2">News per page:</span>
             @foreach ($pageSizes as $option)
                 <a

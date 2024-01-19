@@ -94,8 +94,10 @@ class CommentController extends Controller
     public function activity(Request $request)
     {
         $userName = Auth::user()->name;
-        $comments = Comment::where('username', $userName)->get()->sortBy('created_at');
+        $pageSize = $request->input('pageSize', 10);
+        $totalResults = Comment::where('username', $userName)->count();
+        $comments = Comment::where('username', $userName)->orderByDesc('created_at')->paginate($pageSize);
 
-        return view('activity', ['title' => 'Comments','items' => $comments]);
+        return view('activity', ['title' => 'Comments','items' => $comments, 'totalResults' => $totalResults]);
     }
 }
